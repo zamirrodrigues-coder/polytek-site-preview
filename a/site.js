@@ -1,17 +1,48 @@
 /* Polytek, site novo. Tudo aqui é complemento: os botões de contato são links
    comuns e funcionam com este arquivo desligado. */
 
+/* ---------- cabeçalho fixo: altura reservada na rolagem do foco ----------
+   O estilo já traz uma altura padrão (--topo-altura). Aqui ela vira a altura medida,
+   que muda com a largura da tela e com o tamanho da letra da pessoa. */
+(function(){
+  var topo = document.querySelector('.topo');
+  if (!topo) return;
+  var medir = function(){ document.documentElement.style.setProperty('--topo-altura', topo.offsetHeight + 'px'); };
+  medir();
+  if (window.ResizeObserver) new ResizeObserver(medir).observe(topo);
+  else window.addEventListener('resize', medir);
+})();
+
 /* ---------- menu: marca a página atual ---------- */
 (function(){
-  var links = document.querySelectorAll('.topo-nav a');
+  var faixa = document.querySelector('.topo-nav-linha');
+  if (!faixa) return;
+  var FOLGA = 48;   /* maior que o esmaecido das bordas (44px no estilo) */
+
+  /* No celular o menu rola de lado. Rola só o que falta para o item aparecer inteiro:
+     o item da página atual e o item que recebe o foco do teclado. */
+  function trazer(a){
+    var r = a.getBoundingClientRect(), f = faixa.getBoundingClientRect();
+    if (r.left < f.left + FOLGA) faixa.scrollLeft -= f.left + FOLGA - r.left;
+    else if (r.right > f.right - FOLGA) faixa.scrollLeft += r.right - (f.right - FOLGA);
+  }
+  /* Sinal de que há mais itens ao lado: a borda esmaece enquanto houver o que rolar. */
+  function sinalizar(){
+    faixa.classList.toggle('mais-esquerda', faixa.scrollLeft > 2);
+    faixa.classList.toggle('mais-direita', faixa.scrollLeft + faixa.clientWidth < faixa.scrollWidth - 2);
+  }
+
+  var links = faixa.querySelectorAll('a');
   for (var i = 0; i < links.length; i++) {
     if (links[i].getAttribute('href') === location.pathname) {
       links[i].setAttribute('aria-current', 'page');
-      /* no celular o menu rola de lado: deixa o item da página à vista */
-      var faixa = links[i].parentNode;
-      faixa.scrollLeft = Math.max(0, links[i].offsetLeft - faixa.offsetLeft - 20);
+      trazer(links[i]);
     }
   }
+  faixa.addEventListener('focusin', function(ev){ if (ev.target.tagName === 'A') trazer(ev.target); });
+  faixa.addEventListener('scroll', sinalizar);
+  window.addEventListener('resize', sinalizar);
+  sinalizar();
 })();
 
 /* ---------- rastreamento de contatos (Google Ads) ----------
@@ -52,26 +83,49 @@
     gtag('consent', 'update', { ad_storage: ok, ad_user_data: ok, ad_personalization: ok, analytics_storage: ok });
   }
 
-  function mostrar(){
-    if (document.querySelector('.aviso-cookies')) return;
+  /* A página reserva a altura do aviso enquanto ele está aberto (--aviso-altura, usada
+     no estilo): o foco do teclado não rola para trás dele, e o fim da página e o botão
+     flutuante continuam à vista. */
+  var raiz = document.documentElement;
+  var reabrir = document.querySelector('[data-cookies]');
+  function reservar(el){
+    if (el) raiz.style.setProperty('--aviso-altura', el.offsetHeight + 'px');
+    else raiz.style.removeProperty('--aviso-altura');
+  }
+
+  /* porPedido: a pessoa abriu pelo rodapé. O foco vai ao aviso e volta ao botão ao fechar. */
+  function mostrar(porPedido){
+    var aberto = document.querySelector('.aviso-cookies');
+    if (aberto) { if (porPedido) aberto.focus(); return; }
     var el = document.createElement('div');
     el.className = 'aviso-cookies';
     el.setAttribute('role', 'dialog');
     el.setAttribute('aria-label', 'Aviso sobre Cookies');
+    el.tabIndex = -1;
     el.innerHTML =
       '<p><strong>Este site usa cookies.</strong> Usamos cookies de publicidade para medir quantas pessoas ' +
       'chegam até nós pelos anúncios. Você pode recusar sem perder nenhuma função do site. ' +
       '<a href="https://www.polytek.com.br/politica-de-privacidade/">Política de Privacidade</a></p>' +
       '<div><button type="button" data-recusar>Recusar</button>' +
       '<button type="button" data-aceitar>Aceitar</button></div>';
-    document.body.appendChild(el);
+    /* No começo da página: Recusar e Aceitar ficam entre as primeiras paradas do teclado.
+       Na tela ele continua embaixo, fixo. */
+    document.body.insertBefore(el, document.body.firstChild);
+    var medir = function(){ reservar(el); };
+    medir();
+    var olho = window.ResizeObserver ? new ResizeObserver(medir) : null;
+    if (olho) olho.observe(el); else window.addEventListener('resize', medir);
+    if (porPedido) el.focus();
     el.addEventListener('click', function(ev){
       var b = ev.target.closest('button');
       if (!b) return;
       var v = b.hasAttribute('data-aceitar') ? 'aceito' : 'recusado';
       gravar(v); aplicar(v);
       if (v === 'aceito') guardarOrigem();
+      if (olho) olho.disconnect(); else window.removeEventListener('resize', medir);
       el.parentNode.removeChild(el);
+      reservar(null);
+      if (porPedido && reabrir) reabrir.focus();
     });
   }
 
@@ -89,8 +143,7 @@
 
   var escolha = ler();
   if (escolha === 'aceito') guardarOrigem();
-  if (!escolha) mostrar();
+  if (!escolha) mostrar(false);
 
-  var reabrir = document.querySelector('[data-cookies]');
-  if (reabrir) reabrir.addEventListener('click', mostrar);
+  if (reabrir) reabrir.addEventListener('click', function(){ mostrar(true); });
 })();
