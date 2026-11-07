@@ -1,0 +1,327 @@
+/* ============================================================
+   Polytek, direção nova (Fatia 1.2). Cores, fontes e medidas da
+   direção nova ficam só aqui.
+   Ideia do desenho: a foto conta parte da história. Abertura de
+   foto inteira, azul do logo em blocos cheios, branco, um escuro
+   e um acento quente só no botão principal. Fonte neutra (Inter),
+   hospedada no próprio site.
+   ============================================================ */
+@font-face{
+  font-family:'Inter';
+  src:url(fontes/inter-variavel.woff2) format('woff2');
+  font-weight:100 900;font-style:normal;font-display:swap;
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+:root{
+  --papel:#ffffff;
+  --nevoa:#f1f4f7;
+  --fio:#d5dde5;
+  --texto:#1d2833;
+  --texto-suave:#55626f;
+  --azul:#1479c4;          /* azul vivo do logo: blocos cheios, com texto branco (4,6:1) */
+  --azul-texto:#0f6db3;    /* links e detalhes sobre o branco */
+  --azul-claro:#8cc4ee;    /* marcas sobre o escuro */
+  --escuro:#0e2235;        /* o escuro: rodapé e véu das fotos */
+  --quente:#bf5410;        /* acento quente: só no botão principal (4,7:1 com o branco) */
+  --quente-forte:#9f450b;
+  --zap:#1fa855;
+  --sobre-azul:#e8f2fb;    /* texto de apoio sobre o azul */
+  --sobre-escuro:#d3dee8;  /* texto de apoio sobre o escuro */
+
+  --fonte:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+
+  --largura:1200px;
+  --borda:clamp(20px,5vw,48px);
+  --respiro:clamp(56px,8vw,112px);
+  --respiro-curto:clamp(40px,5vw,64px);
+  --topo-altura:112px;     /* cabeçalho fixo; o script troca pela altura medida */
+  --folga-foco:8px;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+/* O que recebe foco nunca rola para trás do cabeçalho fixo nem do aviso de cookies. */
+html{
+  -webkit-text-size-adjust:100%;scroll-behavior:smooth;
+  scroll-padding-top:calc(var(--topo-altura) + var(--folga-foco));
+  scroll-padding-bottom:calc(var(--aviso-altura,0px) + var(--folga-foco));
+}
+body{
+  margin:0;
+  padding-bottom:var(--aviso-altura,0px);
+  background:var(--papel);
+  color:var(--texto);
+  font:400 1.0625rem/1.65 var(--fonte);
+  -webkit-font-smoothing:antialiased;
+}
+img,svg{max-width:100%;height:auto;display:block}
+h1,h2,h3,p,ul,ol,dl,dd{margin:0}
+ul,ol{padding:0;list-style:none}
+a{color:var(--azul-texto);text-underline-offset:.18em}
+a:hover{color:var(--escuro)}
+:focus-visible{outline:3px solid var(--azul);outline-offset:3px;border-radius:2px}
+
+h1,h2,h3{font-family:var(--fonte);color:var(--escuro);text-wrap:balance}
+h1{font-size:clamp(2.25rem,5vw,3.75rem);font-weight:700;line-height:1.06;letter-spacing:-.025em}
+h2{font-size:clamp(1.75rem,3.1vw,2.5rem);font-weight:700;line-height:1.14;letter-spacing:-.02em}
+h3{font-size:1.1875rem;font-weight:650;line-height:1.3;letter-spacing:-.01em}
+p{max-width:64ch}
+
+.caixa{width:100%;max-width:calc(var(--largura) + 2 * var(--borda));margin-inline:auto;padding-inline:var(--borda)}
+
+.pular{position:absolute;left:-999px;top:8px;background:var(--escuro);color:#fff;padding:10px 14px;z-index:100}
+.pular:focus{left:8px}
+
+/* ---------- botões ---------- */
+.botao{
+  display:inline-flex;align-items:center;justify-content:center;gap:.55em;
+  min-height:52px;padding:.7em 1.4em;
+  font:600 1.0625rem/1.15 var(--fonte);
+  text-decoration:none;border-radius:6px;border:2px solid var(--azul-texto);
+  transition:background-color .15s,color .15s,border-color .15s;
+}
+/* o botão principal (Pedir Visita Técnica) é o único lugar do acento quente */
+.botao-cheio{background:var(--quente);border-color:var(--quente);color:#fff}
+.botao-cheio:hover{background:var(--quente-forte);border-color:var(--quente-forte);color:#fff}
+.botao-linha{background:transparent;color:var(--azul-texto)}
+.botao-linha:hover{background:var(--azul-texto);color:#fff}
+.botao-menor{min-height:44px;font-size:1rem;padding:.55em 1.05em}
+.ic-whats{width:1.3em;height:1.3em;fill:currentColor;flex:none}
+
+.contato{display:flex;flex-wrap:wrap;gap:12px}
+
+/* fundos escuros ou azuis: textos e o botão secundário invertem; o principal fica quente */
+.sobre-escuro{color:#fff}
+.sobre-escuro h1,.sobre-escuro h2,.sobre-escuro h3{color:#fff}
+.sobre-escuro .botao-linha{border-color:#fff;color:#fff}
+.sobre-escuro .botao-linha:hover{background:#fff;color:var(--escuro)}
+.sobre-escuro :focus-visible{outline-color:#fff}
+
+/* ---------- seções ---------- */
+.secao{padding-block:var(--respiro)}
+.secao-nevoa{background:var(--nevoa)}
+.secao-curta{padding-block:var(--respiro-curto)}
+.secao-fio{position:relative}
+.secao-fio::before{
+  content:"";position:absolute;top:0;height:1px;background:var(--fio);
+  left:max(var(--borda),calc((100% - var(--largura)) / 2));right:max(var(--borda),calc((100% - var(--largura)) / 2));
+}
+.abre{max-width:720px;margin-bottom:clamp(28px,4vw,48px)}
+.abre p{margin-top:14px;color:var(--texto-suave)}
+.duas{display:grid;gap:clamp(20px,3vw,32px)}
+.prosa p + p{margin-top:1em}
+.depois{margin-top:clamp(32px,5vw,52px)}
+
+@media (min-width:900px){
+  .duas{grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(40px,6vw,88px);align-items:start}
+}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none !important;transition:none !important}
+}
+
+/* ---------- cabeçalho ---------- */
+.topo{position:sticky;top:0;z-index:50;background:var(--papel);border-bottom:1px solid var(--fio)}
+.topo-linha{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:10px}
+.topo-logo{flex:none}
+.topo-logo img{width:auto;max-width:none;height:46px}
+.topo-contato{display:flex;align-items:center;gap:clamp(12px,2vw,24px)}
+.topo-fone{font:600 1.0625rem/1 var(--fonte);color:var(--escuro);text-decoration:none;white-space:nowrap}
+.topo-fone:hover{color:var(--azul-texto)}
+.topo-nav{border-top:1px solid var(--fio)}
+.topo-nav-linha{display:flex;gap:clamp(18px,3vw,36px);overflow-x:auto;scrollbar-width:none;padding-block:4px}
+.topo-nav-linha::-webkit-scrollbar{display:none}
+.topo-nav-linha.mais-direita{-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 44px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 44px),transparent)}
+.topo-nav-linha.mais-esquerda{-webkit-mask-image:linear-gradient(270deg,#000 calc(100% - 44px),transparent);mask-image:linear-gradient(270deg,#000 calc(100% - 44px),transparent)}
+.topo-nav-linha.mais-esquerda.mais-direita{-webkit-mask-image:linear-gradient(90deg,transparent,#000 44px,#000 calc(100% - 44px),transparent);mask-image:linear-gradient(90deg,transparent,#000 44px,#000 calc(100% - 44px),transparent)}
+.topo-nav a{
+  flex:none;position:relative;padding:7px 0 8px;
+  font:500 .96875rem/1.2 var(--fonte);color:var(--texto);text-decoration:none;white-space:nowrap;
+}
+.topo-nav a:hover{color:var(--azul-texto)}
+.topo-nav a:focus-visible{outline-offset:1px}
+.topo-nav a[aria-current="page"]{color:var(--escuro);font-weight:650}
+.topo-nav a[aria-current="page"]::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:3px;background:var(--azul)}
+
+@media (max-width:560px){
+  .topo-fone{display:none}
+  .topo-logo img{height:36px}
+  .topo .botao-menor{font-size:.9375rem;padding-inline:.85em;white-space:nowrap}
+  .topo .botao-menor .ic-whats{display:none}
+}
+@media (max-width:340px){
+  .topo-linha{gap:10px}
+  .topo-logo img{height:30px}
+}
+
+/* ---------- foto de fundo com véu: abertura e serviços sobre a foto ---------- */
+.foto-fundo{position:relative;isolation:isolate;overflow:hidden;background:var(--escuro)}
+.foto-fundo > img{position:absolute;inset:0;z-index:-2;width:100%;height:100%;max-width:none;object-fit:cover}
+.foto-fundo::before{content:"";position:absolute;inset:0;z-index:-1}
+
+/* ---------- abertura: foto de ponta a ponta, título sobre ela ---------- */
+.abertura{display:flex;align-items:flex-end;min-height:clamp(540px,78vh,720px);padding-block:clamp(64px,10vw,120px) clamp(48px,7vw,88px)}
+.abertura > img{object-position:62% 50%}
+.abertura::before{background:linear-gradient(90deg,rgba(10,26,42,.9) 0%,rgba(10,26,42,.78) 42%,rgba(10,26,42,.25) 78%,rgba(10,26,42,.1) 100%)}
+.abertura-texto{max-width:680px}
+.capacidade{display:inline-block;margin-bottom:18px;padding:6px 12px;border-radius:4px;background:var(--azul);font:600 .9375rem/1.2 var(--fonte);color:#fff}
+.abertura-apoio{margin-top:20px;font-size:clamp(1.0625rem,1.5vw,1.25rem);line-height:1.55;color:#eef3f8;max-width:52ch}
+.abertura .contato{margin-top:32px}
+@media (max-width:700px){
+  .abertura{min-height:0;padding-top:clamp(120px,40vw,220px)}
+  .abertura > img{object-position:70% 50%}
+  .abertura::before{background:linear-gradient(180deg,rgba(10,26,42,.35) 0%,rgba(10,26,42,.82) 38%,rgba(10,26,42,.94) 100%)}
+}
+
+/* ---------- faixa de fatos: bloco cheio no azul do logo ---------- */
+.fatos-faixa{background:var(--azul);color:#fff}
+.fatos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0}
+.fatos li{padding:24px 20px 26px 0;display:flex;flex-direction:column;gap:4px}
+.fatos strong{font-size:clamp(1.125rem,1.8vw,1.3125rem);font-weight:700;line-height:1.2;letter-spacing:-.01em}
+.fatos span{font-size:.9375rem;line-height:1.4;color:var(--sobre-azul)}
+@media (min-width:900px){
+  .fatos{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .fatos li{padding:34px 28px 36px 0}
+  .fatos li + li{padding-left:28px;border-left:1px solid rgba(255,255,255,.3)}
+}
+
+/* ---------- foto e texto lado a lado ---------- */
+.lado{display:grid;gap:clamp(28px,4vw,40px);align-items:center}
+.lado-foto{margin:0;aspect-ratio:4/3;overflow:hidden;border-radius:6px;background:var(--nevoa)}
+.lado-foto img{width:100%;height:100%;object-fit:cover}
+.lado-texto h2{margin-bottom:20px}
+@media (min-width:900px){
+  .lado{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(48px,6vw,96px)}
+  .lado-foto{aspect-ratio:auto;height:100%;min-height:440px}
+}
+
+/* ---------- situações: seis peças curtas ---------- */
+.situacoes{display:grid;gap:16px}
+.situacoes li{background:var(--papel);padding:26px 26px 28px;border-radius:6px;border-top:3px solid var(--azul)}
+.situacoes h3{margin-bottom:8px}
+.situacoes p{font-size:1rem;color:var(--texto-suave)}
+@media (min-width:640px){.situacoes{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:1000px){.situacoes{grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}}
+
+/* ---------- serviços sobre a foto ---------- */
+.servicos{padding-block:var(--respiro)}
+/* véu mais forte à esquerda, onde começa o texto; a foto aparece à direita e entre os grupos */
+.servicos::before{background:linear-gradient(90deg,rgba(10,26,42,.84) 0%,rgba(10,26,42,.66) 55%,rgba(10,26,42,.5) 100%)}
+@media (max-width:760px){.servicos::before{background:rgba(10,26,42,.78)}}
+.servicos .abre p{color:var(--sobre-escuro)}
+.escopo{display:grid;gap:clamp(28px,4vw,40px) clamp(32px,4vw,56px)}
+.escopo-grupo h3{padding-bottom:14px;margin-bottom:16px;border-bottom:2px solid var(--azul)}
+.escopo-grupo li{position:relative;padding-left:20px}
+.escopo-grupo li + li{margin-top:10px}
+.escopo-grupo li::before{content:"";position:absolute;left:0;top:.72em;width:8px;height:8px;margin-top:-4px;border-radius:50%;background:var(--azul)}
+.servicos .escopo-grupo li{color:var(--sobre-escuro)}
+.servicos .escopo-grupo li::before{background:var(--azul-claro)}
+.servicos .escopo-grupo h3{border-bottom-color:var(--azul-claro)}
+.escopo-fecho{position:relative;max-width:none;margin-top:clamp(24px,3.5vw,36px);padding:14px 0 0 20px;border-top:1px solid var(--fio)}
+@media (min-width:760px){.escopo{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:980px){
+  .escopo:has(> .escopo-grupo:nth-child(3):last-child){grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+
+/* ---------- passos: sequência real, numerada ---------- */
+.passos{counter-reset:passo;display:grid;gap:22px}
+.passos li{counter-increment:passo;position:relative;padding-left:64px}
+.passos li::before{
+  content:counter(passo);position:absolute;left:0;top:0;width:44px;height:44px;
+  display:grid;place-items:center;border-radius:6px;
+  background:var(--azul);font:700 1.125rem/1 var(--fonte);color:#fff;
+}
+.passos h3{padding-top:9px;margin-bottom:6px}
+.passos p{font-size:1rem;color:var(--texto-suave)}
+@media (min-width:1000px){
+  .passos{grid-template-columns:repeat(5,minmax(0,1fr));gap:28px}
+  .passos li{padding:64px 0 0}
+  .passos li::after{content:"";position:absolute;left:56px;right:-16px;top:22px;height:2px;background:var(--fio)}
+  .passos li:last-child::after{display:none}
+  .passos h3{padding-top:0}
+}
+
+/* ---------- identificação ---------- */
+.placa{display:grid;gap:0;margin-top:28px;border:1px solid var(--fio);border-radius:6px;background:var(--papel)}
+.placa > div{padding:16px 20px;border-bottom:1px solid var(--fio)}
+.placa > div:last-child{border-bottom:0}
+.placa dt{font-size:.875rem;font-weight:600;color:var(--texto-suave);margin-bottom:2px}
+.placa dd{font-size:1rem;line-height:1.5}
+@media (min-width:640px){
+  .placa{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .placa > div:nth-child(odd){border-right:1px solid var(--fio)}
+  .placa > div:nth-last-child(-n+2){border-bottom:0}
+}
+
+/* ---------- dúvidas ---------- */
+.duvidas details{border-top:1px solid var(--fio)}
+.duvidas details:last-child{border-bottom:1px solid var(--fio)}
+.duvidas summary{
+  display:flex;justify-content:space-between;align-items:center;gap:16px;
+  padding:18px 0;cursor:pointer;list-style:none;
+  font:600 1.0625rem/1.35 var(--fonte);color:var(--escuro);
+}
+.duvidas summary::-webkit-details-marker{display:none}
+.duvidas summary::after{content:"+";flex:none;font:400 1.75rem/1 var(--fonte);color:var(--azul-texto)}
+.duvidas details[open] summary::after{content:"\2212"}
+.duvidas details p{padding-bottom:20px;color:var(--texto-suave)}
+
+/* ---------- chamada final: faixa cheia no azul do logo ---------- */
+.chamada{background:var(--azul);padding-block:clamp(52px,7vw,96px)}
+.chamada p{margin-top:14px;color:var(--sobre-azul)}
+.chamada-linha{display:grid;gap:28px;align-items:center}
+.chamada-hora{font-size:.9375rem}
+@media (min-width:900px){
+  .chamada-linha{grid-template-columns:minmax(0,7fr) minmax(0,5fr)}
+}
+
+/* ---------- rodapé ---------- */
+.rodape{background:var(--escuro);color:#c6d2de;padding-block:clamp(40px,6vw,64px) 28px;font-size:1rem}
+.rodape a{color:#fff;text-decoration:none}
+.rodape a:hover{text-decoration:underline}
+.rodape h2{font:650 1rem/1.2 var(--fonte);letter-spacing:0;color:#fff;margin-bottom:12px}
+.rodape-grade{display:grid;gap:32px}
+.rodape nav a{display:block;padding-block:4px}
+.rodape-logo{width:auto;height:48px;margin-bottom:14px}
+.rodape p{line-height:1.7}
+.rodape-fim{display:flex;flex-wrap:wrap;gap:8px 28px;margin-top:36px;padding-top:20px;border-top:1px solid #263c52;font-size:.9375rem}
+.rodape-cookies{background:none;border:0;padding:0;font:inherit;color:#fff;cursor:pointer}
+.rodape-cookies:hover{text-decoration:underline}
+@media (min-width:760px){
+  .rodape-grade{grid-template-columns:1.3fr 1fr 1fr 1.1fr}
+}
+
+/* ---------- botão flutuante do WhatsApp ---------- */
+.zap{
+  position:fixed;right:clamp(14px,3vw,26px);bottom:calc(clamp(14px,3vw,26px) + var(--aviso-altura,0px));z-index:60;
+  display:grid;place-items:center;width:56px;height:56px;border-radius:50%;
+  background:var(--zap);color:#fff;border:2px solid #fff;
+}
+.zap:hover{background:#178a45;color:#fff}
+.zap .ic-whats{width:30px;height:30px}
+@media (max-width:560px){
+  .zap{width:48px;height:48px}
+  .zap .ic-whats{width:26px;height:26px}
+}
+
+/* ---------- aviso de cookies ---------- */
+.aviso-cookies{
+  position:fixed;left:0;right:0;bottom:0;z-index:70;
+  background:var(--papel);border-top:1px solid var(--fio);box-shadow:0 -6px 24px rgba(14,34,53,.12);
+  padding:16px var(--borda);
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px 28px;
+}
+.aviso-cookies p{font-size:.9375rem;max-width:74ch}
+.aviso-cookies div{display:flex;gap:10px}
+.aviso-cookies button{
+  min-height:44px;padding:.5em 1.2em;border-radius:6px;border:2px solid var(--azul-texto);
+  font:600 1rem/1 var(--fonte);cursor:pointer;background:transparent;color:var(--azul-texto);
+}
+.aviso-cookies button[data-aceitar]{background:var(--azul-texto);color:#fff}
+.aviso-cookies:focus{outline:none}
+@media (max-width:560px){
+  .aviso-cookies{padding:10px 12px;gap:8px}
+  .aviso-cookies p{font-size:.8125rem;line-height:1.38}
+  .aviso-cookies div{width:100%}
+  .aviso-cookies button{flex:1;min-height:40px}
+}
