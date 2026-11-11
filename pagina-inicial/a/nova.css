@@ -371,9 +371,11 @@ p{max-width:64ch}
 
 /* ---------- foto e texto, com legenda sob a foto ---------- */
 .lado-figura{margin:0;display:flex;flex-direction:column}
+/* foto em pé também sai deitada: o quadro manda, a foto se ajusta */
+.lado-figura .lado-foto{aspect-ratio:4/3}
 @media (min-width:900px){
   .lado-figura{height:100%}
-  .lado-figura .lado-foto{flex:1;height:auto}
+  .lado-figura .lado-foto{flex:none;height:auto;aspect-ratio:4/3}
 }
 
 /* ---------- trecho de relatório, dentro do texto ---------- */
@@ -383,3 +385,6 @@ p{max-width:64ch}
 .relatorio td{padding:12px 12px 12px 0;border-bottom:1px solid var(--fio);vertical-align:top}
 .relatorio th:last-child,.relatorio td:last-child{padding-right:0;white-space:nowrap}
 .relatorio td:last-child{font-weight:600;color:var(--escuro)}
+
+/* foto em pé recortada em quadro deitado: mostra a parte de cima (a etiqueta do ponto) */
+.foto-alto{object-position:50% 35%}
