@@ -25,7 +25,7 @@
   --quente:#bf5410;        /* acento quente: só no botão principal (4,7:1 com o branco) */
   --quente-forte:#9f450b;
   --zap:#1fa855;
-  --sobre-azul:#e8f2fb;    /* texto de apoio sobre o azul */
+  --sobre-azul:#ffffff;    /* texto de apoio sobre o azul: branco, 4,6:1 (o tom claro antigo dava 4,06) */
   --sobre-escuro:#d3dee8;  /* texto de apoio sobre o escuro */
 
   --fonte:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
@@ -161,7 +161,7 @@ p{max-width:64ch}
 @media (max-width:560px){
   .topo-fone{display:none}
   .topo-logo img{height:26px}
-  .topo-logo span{font-size:.625rem}
+  .topo-logo span{font-size:.75rem;letter-spacing:.16em;margin-right:-.16em}
   .topo .botao-menor{font-size:.9375rem;padding-inline:.85em;white-space:nowrap}
   .topo .botao-menor .ic-whats{display:none}
 }
@@ -184,7 +184,7 @@ p{max-width:64ch}
 .abertura-apoio{margin-top:20px;font-size:clamp(1.0625rem,1.5vw,1.25rem);line-height:1.55;color:#eef3f8;max-width:52ch}
 .abertura .contato{margin-top:32px}
 @media (max-width:700px){
-  .abertura{min-height:0;padding-top:clamp(120px,40vw,220px)}
+  .abertura{min-height:0;padding-top:clamp(48px,16vw,110px)}
   .abertura > img{object-position:70% 50%}
   .abertura::before{background:linear-gradient(180deg,rgba(10,26,42,.35) 0%,rgba(10,26,42,.82) 38%,rgba(10,26,42,.94) 100%)}
 }
@@ -298,7 +298,7 @@ p{max-width:64ch}
 .ident-pontos{display:grid;gap:0}
 .ident-pontos > div{padding:16px 0}
 .ident-pontos > div + div{border-top:1px solid var(--fio)}
-.ident-pontos dt,.ident-dados dt{font:700 .75rem/1.3 var(--fonte);letter-spacing:.12em;text-transform:uppercase;color:var(--azul-texto);margin-bottom:6px}
+.ident-pontos dt,.ident-dados dt{font:700 .8125rem/1.3 var(--fonte);letter-spacing:.12em;text-transform:uppercase;color:var(--azul-texto);margin-bottom:6px}
 .ident-pontos dd{font-size:1rem;line-height:1.55;color:var(--texto)}
 .ident-titulo{margin:clamp(28px,4vw,40px) 0 20px;font-size:1.375rem}
 .ident-dados{display:grid;gap:20px}
@@ -345,7 +345,7 @@ p{max-width:64ch}
 .rodape nav a{display:block;padding-block:4px}
 .rodape-marca{display:inline-flex;flex-direction:column;align-items:center;gap:4px;margin-bottom:14px;line-height:1}
 .rodape-marca img{width:auto;height:34px}
-.rodape-marca span{font:500 .6875rem/1 var(--fonte);letter-spacing:.24em;margin-right:-.24em;color:#fff}
+.rodape-marca span{font:500 .75rem/1 var(--fonte);letter-spacing:.24em;margin-right:-.24em;color:#fff}
 .rodape p{line-height:1.7}
 .rodape-fim{display:flex;flex-wrap:wrap;gap:8px 28px;margin-top:36px;padding-top:20px;border-top:1px solid #263c52;font-size:.9375rem}
 .rodape-cookies{background:none;border:0;padding:0;font:inherit;color:#fff;cursor:pointer}
@@ -387,6 +387,20 @@ p{max-width:64ch}
   .aviso-cookies p{font-size:.8125rem;line-height:1.38}
   .aviso-cookies div{width:100%}
   .aviso-cookies button{flex:1;min-height:40px}
+}
+
+/* ---------- toque no celular: 44 de altura em todo link (validação de 11/11/2026) ---------- */
+@media (max-width:1259px){
+  .topo-nav-linha{padding-block:0}
+  .topo-nav a{padding:13px 0;min-width:44px;text-align:center}
+  .topo-nav a[aria-current="page"]::after{bottom:0}
+}
+@media (max-width:899px){
+  .ident-dados dd a,.rodape p a,.situacoes p a,.escopo-grupo li a{display:inline-flex;align-items:center;min-height:44px}
+  .rodape-fim a,.rodape-cookies{display:inline-flex;align-items:center;min-height:44px}
+}
+@media (max-width:759px){
+  .rodape nav a{padding-block:9px}
 }
 
 /* ============================================================
@@ -469,7 +483,7 @@ p{max-width:64ch}
 /* ---------- pontos com rótulo azul (mesmo desenho dos pontos da identificação) ---------- */
 .pontos{display:grid;gap:0;margin-top:24px}
 .pontos > div{padding:14px 0;border-top:1px solid var(--fio)}
-.pontos dt{font:700 .75rem/1.3 var(--fonte);letter-spacing:.12em;text-transform:uppercase;color:var(--azul-texto);margin-bottom:4px}
+.pontos dt{font:700 .8125rem/1.3 var(--fonte);letter-spacing:.12em;text-transform:uppercase;color:var(--azul-texto);margin-bottom:4px}
 .pontos dd{font-size:1rem;line-height:1.55;color:var(--texto)}
 
 /* ---------- o serviço fica registrado: texto e a folha do relatório ---------- */
@@ -480,8 +494,9 @@ p{max-width:64ch}
 @media (min-width:960px){.registro{grid-template-columns:minmax(0,5fr) minmax(0,6fr)}.registro-texto{padding-top:clamp(18px,3vw,30px)}}
 .folha{margin:0;padding:clamp(18px,3vw,30px);background:var(--papel);border:1px solid var(--fio);border-radius:10px;box-shadow:0 18px 44px rgba(14,34,53,.13);font-size:.875rem;line-height:1.45;color:var(--texto)}
 .folha-topo{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;padding-bottom:14px;border-bottom:2px solid var(--escuro)}
-.folha-marca{display:inline-flex;flex-direction:column;align-items:center;gap:2px}
-.folha-marca img{width:auto;height:26px}
+.folha-marca{flex:none;display:inline-flex;flex-direction:column;align-items:center;gap:2px}
+.folha-marca img{width:auto;max-width:none;height:26px}
+@media (max-width:560px){.folha-marca img{height:22px}}
 .folha-marca span{font:500 .5625rem/1 var(--fonte);letter-spacing:.24em;margin-right:-.24em}
 .folha-id{text-align:right;font-size:.75rem;color:var(--texto-suave)}
 .folha-id strong{display:block;font-size:1rem;letter-spacing:.02em;text-transform:uppercase;color:var(--escuro)}
