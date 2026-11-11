@@ -480,6 +480,9 @@ p{max-width:64ch}
 @media (min-width:640px){.mapa-lista{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (min-width:1000px){.mapa-lista{grid-template-columns:repeat(4,minmax(0,1fr))}}
 
+/* título comprido da capa: letra menor, para caber em poucas linhas */
+.abertura h1.titulo-longo{font-size:clamp(1.625rem,3.3vw,2.625rem);line-height:1.14}
+
 /* ============================================================
    Proposta de design B (11/11/2026), em avaliação pelo Zamir.
    Referência de forma: easy5.io. Mais branco, títulos ao centro com
