@@ -439,10 +439,11 @@ p{max-width:64ch}
 .pontos dd{font-size:1rem;line-height:1.55;color:var(--texto)}
 
 /* ---------- o serviço fica registrado: texto e a folha do relatório ---------- */
-.registro{display:grid;gap:clamp(32px,5vw,72px);align-items:center}
+.registro{display:grid;gap:clamp(32px,5vw,72px);align-items:start}
 .registro-texto h2{margin-bottom:16px}
 .registro-texto > p:not(.sobretitulo){color:var(--texto);max-width:52ch}
-@media (min-width:960px){.registro{grid-template-columns:minmax(0,5fr) minmax(0,6fr)}}
+/* lado a lado, o texto começa na mesma linha do conteúdo da folha (pedido do Zamir em 11/11/2026) */
+@media (min-width:960px){.registro{grid-template-columns:minmax(0,5fr) minmax(0,6fr)}.registro-texto{padding-top:clamp(18px,3vw,30px)}}
 .folha{margin:0;padding:clamp(18px,3vw,30px);background:var(--papel);border:1px solid var(--fio);border-radius:10px;box-shadow:0 18px 44px rgba(14,34,53,.13);font-size:.875rem;line-height:1.45;color:var(--texto)}
 .folha-topo{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;padding-bottom:14px;border-bottom:2px solid var(--escuro)}
 .folha-marca{display:inline-flex;flex-direction:column;align-items:center;gap:2px}
