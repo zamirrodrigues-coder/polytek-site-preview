@@ -122,7 +122,10 @@ p{max-width:64ch}
 
 /* ---------- cabeçalho ---------- */
 .topo{position:sticky;top:0;z-index:50;background:var(--papel);border-bottom:1px solid var(--fio)}
-.topo-linha{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:10px}
+.topo-linha{display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-areas:"logo contato" "nav nav";align-items:center;column-gap:16px}
+.topo-logo{grid-area:logo;padding-block:10px}
+.topo-contato{grid-area:contato;justify-self:end}
+.topo-nav{grid-area:nav;min-width:0}
 /* assinatura da marca: o logo sem a linha de baixo e a palavra Infraestrutura em texto */
 .topo-logo{flex:none;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none}
 .topo-logo img{width:auto;max-width:none;height:32px}
@@ -130,7 +133,7 @@ p{max-width:64ch}
 .topo-contato{display:flex;align-items:center;gap:clamp(12px,2vw,24px)}
 .topo-fone{font:600 1.0625rem/1 var(--fonte);color:var(--escuro);text-decoration:none;white-space:nowrap}
 .topo-fone:hover{color:var(--azul-texto)}
-.topo-nav{border-top:1px solid var(--fio)}
+.topo-nav{border-top:1px solid var(--fio);margin-inline:calc(-1 * var(--borda));padding-inline:var(--borda)}
 .topo-nav-linha{display:flex;gap:clamp(18px,3vw,36px);overflow-x:auto;scrollbar-width:none;padding-block:4px}
 .topo-nav-linha::-webkit-scrollbar{display:none}
 .topo-nav-linha.mais-direita{-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 44px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 44px),transparent)}
@@ -144,6 +147,16 @@ p{max-width:64ch}
 .topo-nav a:focus-visible{outline-offset:1px}
 .topo-nav a[aria-current="page"]{color:var(--escuro);font-weight:650}
 .topo-nav a[aria-current="page"]::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:3px;background:var(--azul)}
+
+/* uma linha só a partir de 1200 px: logo, menu ao centro e contato à direita */
+@media (min-width:1200px){
+  .topo-linha{grid-template-columns:auto minmax(0,1fr) auto;grid-template-areas:"logo nav contato";column-gap:clamp(24px,3vw,40px);padding-block:12px}
+  .topo-logo{padding-block:0}
+  .topo-nav{border-top:0;margin-inline:0;padding-inline:0;justify-self:center}
+  .topo-nav-linha{gap:clamp(20px,2.2vw,32px);padding-block:0;overflow:visible}
+  .topo-nav a{padding-block:10px}
+  .topo-nav a[aria-current="page"]::after{bottom:2px}
+}
 
 @media (max-width:560px){
   .topo-fone{display:none}
@@ -341,6 +354,9 @@ p{max-width:64ch}
 
 /* legenda de foto: diz o que é e de quando é */
 .legenda{margin-top:10px;font-size:.875rem;line-height:1.45;color:var(--texto-suave);max-width:none}
+/* legenda da foto de obra que está no fundo da abertura: fica sob os botões */
+.abertura-legenda{margin-top:22px;font-size:.8125rem;line-height:1.45;color:var(--sobre-escuro);max-width:58ch}
+@media (max-width:760px){.abertura-legenda{padding-right:64px}}
 
 /* ligação dentro da faixa escura: branca, para ler sobre a foto */
 .servicos .escopo-grupo a{color:#fff}
