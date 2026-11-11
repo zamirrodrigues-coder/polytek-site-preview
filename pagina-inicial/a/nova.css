@@ -341,9 +341,6 @@ p{max-width:64ch}
 
 /* legenda de foto: diz o que é e de quando é */
 .legenda{margin-top:10px;font-size:.875rem;line-height:1.45;color:var(--texto-suave);max-width:none}
-.abertura-legenda{margin-top:22px;font-size:.8125rem;line-height:1.45;color:var(--sobre-escuro);max-width:58ch}
-/* no celular a legenda deixa livre a coluna do botão flutuante */
-@media (max-width:760px){.abertura-legenda{padding-right:64px}}
 
 /* ligação dentro da faixa escura: branca, para ler sobre a foto */
 .servicos .escopo-grupo a{color:#fff}
