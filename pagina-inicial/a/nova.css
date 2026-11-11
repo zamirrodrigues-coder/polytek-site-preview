@@ -148,8 +148,8 @@ p{max-width:64ch}
 .topo-nav a[aria-current="page"]{color:var(--escuro);font-weight:650}
 .topo-nav a[aria-current="page"]::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:3px;background:var(--azul)}
 
-/* uma linha só a partir de 1200 px: logo, menu ao centro e contato à direita */
-@media (min-width:1200px){
+/* uma linha só a partir de 1260 px: logo, menu ao centro e contato à direita */
+@media (min-width:1260px){
   .topo-linha{grid-template-columns:auto minmax(0,1fr) auto;grid-template-areas:"logo nav contato";column-gap:clamp(24px,3vw,40px);padding-block:12px}
   .topo-logo{padding-block:0}
   .topo-nav{border-top:0;margin-inline:0;padding-inline:0;justify-self:center}
@@ -389,11 +389,10 @@ p{max-width:64ch}
   .servico-texto{flex:1;align-self:stretch;padding:24px 26px 28px;border-top:3px solid var(--azul)}
   .servico p{font-size:1rem}
 }
-/* três maiores na primeira linha, quatro na segunda */
+/* oito serviços, quatro por linha */
 @media (min-width:1000px){
   .grade-servicos{grid-template-columns:repeat(12,minmax(0,1fr));gap:20px}
   .grade-servicos li{grid-column:span 3}
-  .grade-servicos li:nth-child(-n+3){grid-column:span 4}
 }
 
 /* ---------- foto e texto, com legenda sob a foto ---------- */
@@ -472,7 +471,7 @@ p{max-width:64ch}
 @media (min-width:640px){.folha-linhas strong{flex:0 0 13.5em}}
 
 /* ---------- condomínio: o desenho do acesso e a lista numerada ---------- */
-.mapa-desenho{display:block;width:100%;height:auto;border-radius:8px;background:var(--nevoa)}
+.mapa-desenho{display:block;width:100%;height:auto;border:1px solid var(--fio);border-radius:10px;background:var(--papel)}
 .mapa-lista{display:grid;gap:14px;margin-top:20px;counter-reset:mapa}
 .mapa-lista li{position:relative;padding:16px 18px 18px 62px;background:var(--papel);border:1px solid var(--fio);border-radius:6px;counter-increment:mapa}
 .mapa-lista li::before{content:counter(mapa);position:absolute;left:16px;top:16px;display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--azul);color:#fff;font-weight:700}
@@ -516,4 +515,3 @@ p{max-width:64ch}
 .grade-b .servico-mais{display:inline-block;margin-top:12px;padding:7px 14px;border-radius:5px;background:var(--azul);color:#fff;font:600 .8125rem/1 var(--fonte)}
 @media (max-width:639px){.grade-b .servico-mais{display:none}}
 @media (prefers-reduced-motion:reduce){.grade-b .servico img{transition:none}}
-.abre .sobretitulo{color:var(--azul-texto);margin-bottom:10px}
