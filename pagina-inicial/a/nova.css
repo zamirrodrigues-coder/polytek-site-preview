@@ -429,3 +429,91 @@ p{max-width:64ch}
 
 /* preço em destaque nos cartões da Assistência Técnica */
 .situacoes p strong{display:block;margin-bottom:4px;font-size:1.25rem;color:var(--escuro)}
+
+/* ---------- rótulo acima do título ---------- */
+.sobretitulo{margin-bottom:12px;font:700 .8125rem/1.3 var(--fonte);letter-spacing:.14em;text-transform:uppercase;color:var(--azul-texto)}
+
+/* ---------- pontos com rótulo azul (mesmo desenho dos pontos da identificação) ---------- */
+.pontos{display:grid;gap:0;margin-top:24px}
+.pontos > div{padding:14px 0;border-top:1px solid var(--fio)}
+.pontos dt{font:700 .75rem/1.3 var(--fonte);letter-spacing:.12em;text-transform:uppercase;color:var(--azul-texto);margin-bottom:4px}
+.pontos dd{font-size:1rem;line-height:1.55;color:var(--texto)}
+
+/* ---------- o serviço fica registrado: texto e a folha do relatório ---------- */
+.registro{display:grid;gap:clamp(32px,5vw,72px);align-items:center}
+.registro-texto h2{margin-bottom:16px}
+.registro-texto > p:not(.sobretitulo){color:var(--texto);max-width:52ch}
+@media (min-width:960px){.registro{grid-template-columns:minmax(0,5fr) minmax(0,6fr)}}
+.folha{margin:0;padding:clamp(18px,3vw,30px);background:var(--papel);border:1px solid var(--fio);border-radius:10px;box-shadow:0 18px 44px rgba(14,34,53,.13);font-size:.875rem;line-height:1.45;color:var(--texto)}
+.folha-topo{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;padding-bottom:14px;border-bottom:2px solid var(--escuro)}
+.folha-marca{display:inline-flex;flex-direction:column;align-items:center;gap:2px}
+.folha-marca img{width:auto;height:26px}
+.folha-marca span{font:500 .5625rem/1 var(--fonte);letter-spacing:.24em;margin-right:-.24em}
+.folha-id{text-align:right;font-size:.75rem;color:var(--texto-suave)}
+.folha-id strong{display:block;font-size:1rem;letter-spacing:.02em;text-transform:uppercase;color:var(--escuro)}
+.folha-dados{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:14px}
+.folha-dados dt,.folha-rotulo{font:700 .6875rem/1.3 var(--fonte);letter-spacing:.1em;text-transform:uppercase;color:var(--texto-suave)}
+.folha-dados dd{font-weight:600;color:var(--escuro)}
+.folha-rotulo{margin-top:18px;color:var(--azul-texto)}
+.folha .relatorio{margin-top:6px;font-size:.8125rem}
+.folha .relatorio td{padding:8px 10px 8px 0}
+.folha .relatorio th{padding:6px 10px 6px 0}
+.folha-fotos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:8px;font-size:.75rem;color:var(--texto-suave)}
+.folha-fotos img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:5px;margin-bottom:5px;background:var(--nevoa)}
+.folha-linhas{margin-top:16px;border-top:1px solid var(--fio)}
+.folha-linhas p{display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;padding:9px 0;border-bottom:1px solid var(--fio)}
+.folha-linhas strong{flex:0 0 100%;font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--escuro)}
+.folha-escala{display:inline-flex;gap:5px}
+.folha-escala i{display:grid;place-items:center;width:24px;height:24px;border:1px solid var(--fio);border-radius:50%;font-style:normal;font-size:.75rem;color:var(--texto-suave)}
+.folha-botoes{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.folha-bt{padding:8px 14px;border:1px solid var(--azul-texto);border-radius:5px;font-weight:600;font-size:.8125rem;color:var(--azul-texto)}
+.folha-bt.cheio{background:var(--azul-texto);color:#fff}
+.folha figcaption{margin-top:14px;font-size:.75rem;font-style:italic;color:var(--texto-suave)}
+@media (min-width:640px){.folha-linhas strong{flex:0 0 13.5em}}
+
+/* ---------- condomínio: o desenho do acesso e a lista numerada ---------- */
+.mapa-desenho{display:block;width:100%;height:auto;border-radius:8px;background:var(--nevoa)}
+.mapa-lista{display:grid;gap:14px;margin-top:20px;counter-reset:mapa}
+.mapa-lista li{position:relative;padding:16px 18px 18px 62px;background:var(--papel);border:1px solid var(--fio);border-radius:6px;counter-increment:mapa}
+.mapa-lista li::before{content:counter(mapa);position:absolute;left:16px;top:16px;display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--azul);color:#fff;font-weight:700}
+.mapa-lista h3{margin-bottom:4px}
+.mapa-lista p{font-size:.9375rem;color:var(--texto-suave)}
+@media (min-width:640px){.mapa-lista{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:1000px){.mapa-lista{grid-template-columns:repeat(4,minmax(0,1fr))}}
+
+/* ============================================================
+   Proposta de design B (11/11/2026), em avaliação pelo Zamir.
+   Referência de forma: easy5.io. Mais branco, títulos ao centro com
+   rótulo colorido, diferenciais em ícones e serviços com a foto
+   inteira e o nome por cima. Só a página /proposta-de-design/ usa.
+   Aprovada, vira o padrão; reprovada, este arquivo e a página saem.
+   ============================================================ */
+.abre-centro{text-align:center;margin-inline:auto}
+.abre-centro h2{margin-inline:auto}
+
+/* diferenciais: ícone em linha, título e uma frase */
+.difs{display:grid;gap:36px 28px;margin-top:8px}
+.difs li{text-align:center}
+.ic-dif{width:52px;height:52px;margin:0 auto 14px;display:block;fill:none;stroke:var(--azul);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.difs h3{margin-bottom:6px;font-size:1.125rem}
+.difs p{max-width:30ch;margin-inline:auto;font-size:.9375rem;color:var(--texto-suave)}
+@media (min-width:560px){.difs{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:900px){.difs{grid-template-columns:repeat(3,minmax(0,1fr));gap:48px 40px}}
+
+/* serviços: a foto ocupa o cartão, o nome vai por cima */
+@media (min-width:640px){
+  .grade-b .servico{position:relative;display:block;border-radius:10px;overflow:hidden;min-height:260px;background:var(--escuro)}
+  .grade-b .servico img{position:absolute;inset:0;width:100%;height:100%;aspect-ratio:auto;object-fit:cover;transition:transform .35s ease}
+  .grade-b .servico::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,26,42,.05) 25%,rgba(10,26,42,.88) 100%)}
+  .grade-b .servico-texto{position:absolute;left:0;right:0;bottom:0;z-index:1;border-top:0;padding:20px 22px 22px}
+  .grade-b .servico h3{color:#fff;font-size:1.25rem}
+  .grade-b .servico p{color:#e3ebf3;font-size:.9375rem}
+  .grade-b .servico:hover img{transform:scale(1.04)}
+  .grade-b .servico:hover h3{color:#fff}
+  .grade-b li:nth-child(-n+3) .servico{min-height:320px}
+}
+.servico-mais{display:none}
+.grade-b .servico-mais{display:inline-block;margin-top:12px;padding:7px 14px;border-radius:5px;background:var(--azul);color:#fff;font:600 .8125rem/1 var(--fonte)}
+@media (max-width:639px){.grade-b .servico-mais{display:none}}
+@media (prefers-reduced-motion:reduce){.grade-b .servico img{transition:none}}
+.abre .sobretitulo{color:var(--azul-texto);margin-bottom:10px}
