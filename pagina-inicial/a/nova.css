@@ -219,6 +219,43 @@ p{max-width:64ch}
 @media (min-width:640px){.situacoes{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (min-width:1000px){.situacoes{grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}}
 
+/* ---------- rótulo com traço, sobre o título do bloco ---------- */
+.sobretitulo-traco::before{content:"";display:inline-block;width:36px;height:3px;margin-right:14px;vertical-align:middle;border-radius:2px;background:var(--azul)}
+
+/* ---------- foto com a legenda em faixa, na base da foto (Rede Interna, 11/11/2026) ---------- */
+.foto-faixa{position:relative;align-self:center}
+.foto-faixa .legenda{position:absolute;left:0;right:0;bottom:0;margin:0;display:flex;align-items:center;gap:14px;padding:14px 20px;border-radius:0 0 6px 6px;background:rgba(14,34,53,.92);color:#fff;font-size:.9375rem;line-height:1.4}
+.foto-faixa .legenda svg{flex:none;box-sizing:content-box;width:28px;height:28px;padding-right:14px;border-right:1px solid rgba(255,255,255,.35);fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+@media (min-width:900px){
+  .lado-figura.foto-faixa{height:auto}
+  .lado-figura.foto-faixa .lado-foto{aspect-ratio:1/1}
+}
+
+/* três provas em linha, com ícone, sob o texto */
+.trio{display:grid;gap:16px;margin-top:28px}
+.trio li{display:flex;align-items:center;gap:12px}
+.trio svg{flex:none;width:34px;height:34px;fill:none;stroke:var(--azul);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.trio p{font-size:.9375rem;line-height:1.35;color:var(--texto-suave)}
+.trio strong{display:block;font-size:1rem;color:var(--escuro)}
+@media (min-width:560px){
+  .trio{grid-template-columns:repeat(3,minmax(0,1fr));gap:0}
+  .trio li{padding-right:14px}
+  .trio li + li{padding-left:18px;border-left:1px solid var(--fio)}
+}
+.lado-fecho{margin-top:28px}
+
+/* ---------- cenários: foto pequena ao lado do texto, sem caixa ---------- */
+.cenarios{display:grid;gap:28px}
+.cenarios li{display:grid;grid-template-columns:96px minmax(0,1fr);gap:18px;align-items:center}
+.cenarios img{display:block;width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;border-radius:6px;background:var(--fio)}
+.cenarios h3{margin-bottom:6px}
+.cenarios p{font-size:1rem;color:var(--texto-suave)}
+@media (min-width:640px){.cenarios{grid-template-columns:repeat(2,minmax(0,1fr));gap:36px 32px}}
+@media (min-width:1000px){
+  .cenarios{grid-template-columns:repeat(3,minmax(0,1fr));gap:48px 40px}
+  .cenarios li{grid-template-columns:136px minmax(0,1fr);gap:22px}
+}
+
 /* ---------- serviços sobre a foto ---------- */
 .servicos{padding-block:var(--respiro)}
 /* véu mais forte à esquerda, onde começa o texto; a foto aparece à direita e entre os grupos */
