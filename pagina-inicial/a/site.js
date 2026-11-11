@@ -105,7 +105,7 @@
     el.innerHTML =
       '<p><strong>Este site usa cookies.</strong> Usamos cookies de publicidade para medir quantas pessoas ' +
       'chegam até nós pelos anúncios. Você pode recusar sem perder nenhuma função do site. ' +
-      '<a href="https://www.polytek.com.br/politica-de-privacidade/">Política de Privacidade</a></p>' +
+      '<a href="/polytek-site-preview/pagina-inicial/politica-de-privacidade/">Política de Privacidade</a></p>' +
       '<div><button type="button" data-recusar>Recusar</button>' +
       '<button type="button" data-aceitar>Aceitar</button></div>';
     /* No começo da página: Recusar e Aceitar ficam entre as primeiras paradas do teclado.

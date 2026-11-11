@@ -257,16 +257,27 @@ p{max-width:64ch}
   .passos h3{padding-top:0}
 }
 
-/* ---------- identificação ---------- */
-.placa{display:grid;gap:0;margin-top:28px;border:1px solid var(--fio);border-radius:6px;background:var(--papel)}
-.placa > div{padding:16px 20px;border-bottom:1px solid var(--fio)}
-.placa > div:last-child{border-bottom:0}
-.placa dt{font-size:.875rem;font-weight:600;color:var(--texto-suave);margin-bottom:2px}
-.placa dd{font-size:1rem;line-height:1.5}
-@media (min-width:640px){
-  .placa{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .placa > div:nth-child(odd){border-right:1px solid var(--fio)}
-  .placa > div:nth-last-child(-n+2){border-bottom:0}
+/* ---------- identificação: contratação direta, depois os dados da empresa em quatro colunas ---------- */
+.ident-topo{display:grid;gap:28px;padding-bottom:clamp(28px,4vw,40px);border-bottom:1px solid var(--fio)}
+.ident-chamada h2{margin-bottom:16px}
+.ident-chamada p{color:var(--texto);max-width:56ch}
+.ident-pontos{display:grid;gap:0}
+.ident-pontos > div{padding:16px 0}
+.ident-pontos > div + div{border-top:1px solid var(--fio)}
+.ident-pontos dt,.ident-dados dt{font:700 .75rem/1.3 var(--fonte);letter-spacing:.12em;text-transform:uppercase;color:var(--azul-texto);margin-bottom:6px}
+.ident-pontos dd{font-size:1rem;line-height:1.55;color:var(--texto)}
+.ident-titulo{margin:clamp(28px,4vw,40px) 0 20px;font-size:1.375rem}
+.ident-dados{display:grid;gap:20px}
+.ident-dados dd{font-size:.9375rem;line-height:1.6;color:var(--texto)}
+@media (min-width:640px){.ident-dados{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:900px){
+  .ident-topo{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(40px,6vw,88px);align-items:start}
+  .ident-pontos{border-left:1px solid var(--fio);padding-left:clamp(40px,5vw,72px)}
+  .ident-pontos > div:first-child{padding-top:0}
+  .ident-dados{grid-template-columns:repeat(4,minmax(0,1fr));gap:0}
+  .ident-dados > div{padding:0 24px}
+  .ident-dados > div:first-child{padding-left:0}
+  .ident-dados > div + div{border-left:1px solid var(--fio)}
 }
 
 /* ---------- dúvidas ---------- */
@@ -404,3 +415,17 @@ p{max-width:64ch}
 
 /* foto em pé recortada em quadro deitado: mostra a parte de cima (a etiqueta do ponto) */
 .foto-alto{object-position:50% 35%}
+
+/* ---------- texto longo (Política de Privacidade) ---------- */
+.texto-longo{max-width:calc(760px + 2 * var(--borda))}
+.texto-longo h2{margin:48px 0 14px;font-size:1.5rem}
+.texto-longo h2:first-child{margin-top:0}
+.texto-longo h3{margin:24px 0 8px;font-size:1.125rem}
+.texto-longo p,.texto-longo li{line-height:1.65;color:var(--texto)}
+.texto-longo p + p{margin-top:.8em}
+.texto-longo ul{margin:8px 0 0;padding-left:22px;list-style:disc}
+.texto-longo li + li{margin-top:6px}
+.texto-longo a{color:var(--azul-texto)}
+
+/* preço em destaque nos cartões da Assistência Técnica */
+.situacoes p strong{display:block;margin-bottom:4px;font-size:1.25rem;color:var(--escuro)}
