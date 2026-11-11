@@ -219,9 +219,6 @@ p{max-width:64ch}
 @media (min-width:640px){.situacoes{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (min-width:1000px){.situacoes{grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}}
 
-/* ---------- rótulo com traço, sobre o título do bloco ---------- */
-.sobretitulo-traco::before{content:"";display:inline-block;width:36px;height:3px;margin-right:14px;vertical-align:middle;border-radius:2px;background:var(--azul)}
-
 /* ---------- foto com a legenda em faixa, na base da foto (Rede Interna, 11/11/2026) ---------- */
 .foto-faixa{position:relative;align-self:center}
 .foto-faixa .legenda{position:absolute;left:0;right:0;bottom:0;margin:0;display:flex;align-items:center;gap:14px;padding:14px 20px;border-radius:0 0 6px 6px;background:rgba(14,34,53,.92);color:#fff;font-size:.9375rem;line-height:1.4}
