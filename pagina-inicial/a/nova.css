@@ -200,6 +200,7 @@ p{max-width:64ch}
 @media (min-width:900px){
   .lado{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(48px,6vw,96px)}
   .lado-foto{aspect-ratio:auto;height:100%;min-height:440px}
+  .lado-inverso > :first-child{order:2}   /* foto à direita, alternando as dobras (Infraestrutura por Assinatura) */
 }
 
 /* ---------- situações: seis peças curtas ---------- */
