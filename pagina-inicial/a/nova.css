@@ -1,6 +1,8 @@
 /* ============================================================
    Polytek, direção nova (Fatia 1.2). Cores, fontes e medidas da
    direção nova ficam só aqui.
+   Cores do manual de marca, aprovado pelo Zamir em 11/11/2026: Azul Polytek, Marinho, Texto,
+   Texto Suave e Névoa (registro em docs/gates/Fatia-7-Manual-de-Marca.md).
    Ideia do desenho: a foto conta parte da história. Abertura de
    foto inteira, azul do logo em blocos cheios, branco, um escuro
    e um acento quente só no botão principal. Fonte neutra (Inter),
@@ -14,18 +16,19 @@
 }
 :root{
   --papel:#ffffff;
-  --nevoa:#f1f4f7;
+  --nevoa:#eef2f5;
   --fio:#d5dde5;
-  --texto:#1d2833;
-  --texto-suave:#55626f;
-  --azul:#1479c4;          /* azul vivo do logo: blocos cheios, com texto branco (4,6:1) */
-  --azul-texto:#0f6db3;    /* links e detalhes sobre o branco */
+  --texto:#1b2733;
+  --texto-suave:#52606d;
+  --azul:#0170ba;          /* Azul Polytek, o azul do logo (manual de marca): blocos cheios, com texto branco (5,2:1) */
+  --azul-texto:#0170ba;    /* links e detalhes: o mesmo azul, 5,2:1 sobre o branco e 4,6:1 sobre a névoa */
   --azul-claro:#8cc4ee;    /* marcas sobre o escuro */
   --escuro:#0e2235;        /* o escuro: rodapé e véu das fotos */
-  --quente:#bf5410;        /* acento quente: só no botão principal (4,7:1 com o branco) */
+  --quente:#bf5410;        /* acento quente: só no botão principal (4,7:1 com o branco). Fora do manual
+                              de marca, mantido por decisão do Zamir em 12/11/2026 ("Manter laranja") */
   --quente-forte:#9f450b;
   --zap:#1fa855;
-  --sobre-azul:#ffffff;    /* texto de apoio sobre o azul: branco, 4,6:1 (o tom claro antigo dava 4,06) */
+  --sobre-azul:#ffffff;    /* texto de apoio sobre o azul: branco, 5,2:1 */
   --sobre-escuro:#d3dee8;  /* texto de apoio sobre o escuro */
 
   --fonte:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
@@ -126,10 +129,10 @@ p{max-width:64ch}
 .topo-logo{grid-area:logo;padding-block:10px}
 .topo-contato{grid-area:contato;justify-self:end}
 .topo-nav{grid-area:nav;min-width:0}
-/* assinatura da marca: o logo sem a linha de baixo e a palavra Infraestrutura em texto */
-.topo-logo{flex:none;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none}
+/* logo: a versão reduzida do manual de marca (só Polytek), que é a do cabeçalho. A completa,
+   com Infraestrutura, fica no rodapé. A palavra nunca é redigitada em texto. */
+.topo-logo{flex:none;display:flex;align-items:center;text-decoration:none}
 .topo-logo img{width:auto;max-width:none;height:32px}
-.topo-logo span{font:500 .6875rem/1 var(--fonte);letter-spacing:.24em;margin-right:-.24em;color:var(--texto)}
 .topo-contato{display:flex;align-items:center;gap:clamp(12px,2vw,24px)}
 .topo-fone{font:600 1.0625rem/1 var(--fonte);color:var(--escuro);text-decoration:none;white-space:nowrap}
 .topo-fone:hover{color:var(--azul-texto)}
@@ -161,14 +164,15 @@ p{max-width:64ch}
 
 @media (max-width:560px){
   .topo-fone{display:none}
-  .topo-logo img{height:26px}
-  .topo-logo span{font-size:.75rem;letter-spacing:.16em;margin-right:-.16em}
+  .topo-logo img{height:28px}
   .topo .botao-menor{font-size:.9375rem;padding-inline:.85em;white-space:nowrap}
   .topo .botao-menor .ic-whats{display:none}
 }
 @media (max-width:340px){
   .topo-linha{gap:10px}
-  .topo-logo img{height:22px}
+  .topo-logo img{height:24px}   /* 100 de largura, o mínimo do manual para a versão reduzida */
+  /* área de proteção do logo: o botão encolhe para sobrar espaço entre os dois */
+  .topo .botao-menor{font-size:.875rem;padding-inline:.6em}
 }
 
 /* ---------- foto de fundo com véu: abertura e serviços sobre a foto ---------- */
@@ -344,9 +348,8 @@ p{max-width:64ch}
 .rodape h2{font:650 1rem/1.2 var(--fonte);letter-spacing:0;color:#fff;margin-bottom:12px}
 .rodape-grade{display:grid;gap:32px}
 .rodape nav a{display:block;padding-block:4px}
-.rodape-marca{display:inline-flex;flex-direction:column;align-items:center;gap:4px;margin-bottom:14px;line-height:1}
-.rodape-marca img{width:auto;height:34px}
-.rodape-marca span{font:500 .75rem/1 var(--fonte);letter-spacing:.24em;margin-right:-.24em;color:#fff}
+.rodape-marca{margin-bottom:14px;line-height:1}
+.rodape-marca img{width:auto;height:56px}   /* versão completa, 169 de largura (mínimo do manual: 160) */
 .rodape p{line-height:1.7}
 .rodape-fim{display:flex;flex-wrap:wrap;gap:8px 28px;margin-top:36px;padding-top:20px;border-top:1px solid #263c52;font-size:.9375rem}
 .rodape-cookies{background:none;border:0;padding:0;font:inherit;color:#fff;cursor:pointer}
@@ -495,10 +498,8 @@ p{max-width:64ch}
 @media (min-width:960px){.registro{grid-template-columns:minmax(0,5fr) minmax(0,6fr)}.registro-texto{padding-top:clamp(18px,3vw,30px)}}
 .folha{margin:0;padding:clamp(18px,3vw,30px);background:var(--papel);border:1px solid var(--fio);border-radius:10px;box-shadow:0 18px 44px rgba(14,34,53,.13);font-size:.875rem;line-height:1.45;color:var(--texto)}
 .folha-topo{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;padding-bottom:14px;border-bottom:2px solid var(--escuro)}
-.folha-marca{flex:none;display:inline-flex;flex-direction:column;align-items:center;gap:2px}
-.folha-marca img{width:auto;max-width:none;height:26px}
-@media (max-width:560px){.folha-marca img{height:22px}}
-.folha-marca span{font:500 .5625rem/1 var(--fonte);letter-spacing:.24em;margin-right:-.24em}
+.folha-marca{flex:none;display:inline-flex}
+.folha-marca img{width:auto;max-width:none;height:26px}   /* versão reduzida, 108 de largura */
 .folha-id{text-align:right;font-size:.75rem;color:var(--texto-suave)}
 .folha-id strong{display:block;font-size:1rem;letter-spacing:.02em;text-transform:uppercase;color:var(--escuro)}
 .folha-dados{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:14px}
