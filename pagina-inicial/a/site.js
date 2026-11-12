@@ -147,3 +147,85 @@
 
   if (reabrir) reabrir.addEventListener('click', function(){ mostrar(true); });
 })();
+
+/* ---------- formulário de contato ----------
+   Sem script, o formulário é enviado como formulário comum e o CRM devolve para a página de
+   obrigado ou de erro. Com script, o envio é feito aqui, com os dados de origem do anúncio
+   (guardados só depois do aceite de cookies) e o identificador do Analytics, se houver.
+   O evento contato_formulario só é disparado depois de o CRM confirmar o envio. */
+(function(){
+  window.dataLayer = window.dataLayer || [];
+  var EVENTO = { event: 'contato_formulario', contato_metodo: 'formulario', pagina_origem: location.pathname, link_destino: '' };
+
+  /* página de obrigado: o envio sem script chega aqui. Conta uma vez por aba. */
+  if (/\/contato\/obrigado\/$/.test(location.pathname)) {
+    var ja = false; try { ja = sessionStorage.getItem('polytek_formulario_contado') === '1'; } catch(e){}
+    if (!ja) { window.dataLayer.push(EVENTO); try { sessionStorage.setItem('polytek_formulario_contado', '1'); } catch(e){} }
+  }
+  /* página de erro: o motivo vem no endereço */
+  var motivo = (location.search.match(/[?&]motivo=([a-z]+)/) || [])[1];
+  var textoMotivo = { limite: 'Recebemos muitos envios em pouco tempo. Espere alguns minutos e tente de novo, ou fale pelo WhatsApp.',
+    indisponivel: 'O envio está fora do ar neste momento. Fale com a equipe pelo WhatsApp.',
+    origem: 'O envio só funciona a partir do site da Polytek. Fale com a equipe pelo WhatsApp.',
+    campos: 'Faltou o nome, ou o e-mail e o telefone vieram em branco ou em formato inválido.' };
+  var alvoMotivo = document.querySelector('[data-erro-motivo]');
+  if (alvoMotivo && textoMotivo[motivo]) {
+    var p = document.createElement('p'); p.className = 'abertura-apoio'; p.textContent = textoMotivo[motivo];
+    alvoMotivo.parentNode.insertBefore(p, alvoMotivo.nextSibling);
+  }
+
+  var form = document.querySelector('[data-formulario]');
+  if (!form) return;
+  /* Campo alto (a mensagem) em tela baixa: o navegador rola só até o cursor, e o aviso de cookies
+     cobria parte dele. Aqui o campo inteiro vem para a área livre (a rolagem respeita a reserva do
+     cabeçalho e do aviso). */
+  form.addEventListener('focusin', function(ev){
+    if (ev.target.matches && ev.target.matches('input,textarea') && ev.target.scrollIntoView) ev.target.scrollIntoView({ block: 'nearest' });
+  });
+  if (!window.fetch || !window.FormData) return;
+  var retorno = form.querySelector('.form-retorno');
+  var botao = form.querySelector('button[type="submit"]');
+  var avisar = function(texto, erro){ retorno.textContent = texto; retorno.classList.toggle('erro', !!erro); };
+  var marcar = function(nomes){
+    form.querySelectorAll('input,textarea').forEach(function(c){ c.removeAttribute('aria-invalid'); });
+    (nomes || []).forEach(function(n){ var c = form.elements[n]; if (c) c.setAttribute('aria-invalid', 'true'); });
+    var primeiro = (nomes || []).map(function(n){ return form.elements[n]; }).filter(Boolean)[0];
+    if (primeiro) primeiro.focus();
+  };
+  var WHATS = ' Se preferir, fale pelo WhatsApp, no botão verde da página.';
+
+  form.addEventListener('submit', function(ev){
+    ev.preventDefault();
+    if (form.getAttribute('data-ligado') !== 'sim') { avisar('O formulário ainda está em preparação.' + WHATS, true); return; }
+    var d = {};
+    ['nome','empresa','email','telefone','mensagem','website','pagina_origem'].forEach(function(n){ d[n] = (form.elements[n] && form.elements[n].value || '').trim(); });
+    var faltam = [];
+    if (d.nome.length < 2) faltam.push('nome');
+    var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email), digitos = d.telefone.replace(/\D/g, '').length;
+    if (!d.email && !d.telefone) faltam.push('email', 'telefone');
+    else { if (d.email && !emailOk) faltam.push('email'); if (d.telefone && (digitos < 10 || digitos > 13)) faltam.push('telefone'); }
+    if (faltam.length) { marcar(faltam); avisar('Confira o nome e o e-mail ou o telefone com DDD.', true); return; }
+    marcar([]);
+    try { var o = JSON.parse(sessionStorage.getItem('polytek_origem') || '{}');
+      ['gclid','gbraid','wbraid','utm_source','utm_medium','utm_campaign','utm_term','utm_content'].forEach(function(k){ if (o[k]) d[k] = String(o[k]).slice(0, 200); }); } catch(e){}
+    var ga = (document.cookie.match(/(?:^|;\s*)_ga=GA\d+\.\d+\.(\d+\.\d+)/) || [])[1];
+    if (ga) d.ga_client_id = ga;
+    Object.keys(d).forEach(function(k){ if (d[k] === '' && k !== 'website') delete d[k]; });
+    botao.disabled = true; avisar('Enviando...');
+    fetch(form.action, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(d) })
+      .then(function(r){ return r.json().catch(function(){ return { ok: false, erro: { codigo: 'indisponivel' } }; }); })
+      .then(function(j){
+        botao.disabled = false;
+        if (j && j.ok) {
+          window.dataLayer.push(EVENTO);
+          form.reset();
+          avisar('Mensagem recebida. A equipe comercial da Polytek responde pelo canal que você indicou.');
+          return;
+        }
+        var e = (j && j.erro) || {};
+        if (e.codigo === 'campos') { marcar(e.campos); avisar(textoMotivo.campos, true); }
+        else avisar((textoMotivo[e.codigo] || textoMotivo.indisponivel), true);
+      })
+      .catch(function(){ botao.disabled = false; avisar('Não foi possível enviar agora.' + WHATS, true); });
+  });
+})();
