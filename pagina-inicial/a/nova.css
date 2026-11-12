@@ -124,8 +124,8 @@ p{max-width:64ch}
 }
 
 /* ---------- cabeçalho ----------
-   Só o logo e o menu dos serviços, em uma linha (pedido do Zamir em 12/11/2026). Pedir Visita
-   Técnica e Ligar ficam nas dobras da página e no botão flutuante; Contato fica no rodapé.
+   Só o logo e o menu (os serviços e Contato), em uma linha (pedido do Zamir em 12/11/2026). Pedir
+   Visita Técnica e Ligar ficam nas dobras da página e no botão flutuante.
    Onde o menu não cabe inteiro, ele rola de lado, com a borda esmaecida avisando que há mais. */
 .topo{position:sticky;top:0;z-index:50;background:var(--papel);border-bottom:1px solid var(--fio)}
 .topo-linha{display:flex;align-items:center;column-gap:clamp(20px,3vw,40px)}
