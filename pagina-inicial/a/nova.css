@@ -123,56 +123,42 @@ p{max-width:64ch}
   *,*::before,*::after{animation:none !important;transition:none !important}
 }
 
-/* ---------- cabeçalho ---------- */
+/* ---------- cabeçalho ----------
+   Só o logo e o menu dos serviços, em uma linha (pedido do Zamir em 12/11/2026). Pedir Visita
+   Técnica e Ligar ficam nas dobras da página e no botão flutuante; Contato fica no rodapé.
+   Onde o menu não cabe inteiro, ele rola de lado, com a borda esmaecida avisando que há mais. */
 .topo{position:sticky;top:0;z-index:50;background:var(--papel);border-bottom:1px solid var(--fio)}
-.topo-linha{display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-areas:"logo contato" "nav nav";align-items:center;column-gap:16px}
-.topo-logo{grid-area:logo;padding-block:10px}
-.topo-contato{grid-area:contato;justify-self:end}
-.topo-nav{grid-area:nav;min-width:0}
+.topo-linha{display:flex;align-items:center;column-gap:clamp(20px,3vw,40px)}
 /* logo: a versão reduzida do manual de marca (só Polytek), que é a do cabeçalho. A completa,
    com Infraestrutura, fica no rodapé. A palavra nunca é redigitada em texto. */
-.topo-logo{flex:none;display:flex;align-items:center;text-decoration:none}
+.topo-logo{flex:none;display:flex;align-items:center;padding-block:12px;text-decoration:none}
 .topo-logo img{width:auto;max-width:none;height:32px}
-.topo-contato{display:flex;align-items:center;gap:clamp(12px,2vw,24px)}
-.topo-fone{font:600 1.0625rem/1 var(--fonte);color:var(--escuro);text-decoration:none;white-space:nowrap}
-.topo-fone:hover{color:var(--azul-texto)}
-.topo-nav{border-top:1px solid var(--fio);margin-inline:calc(-1 * var(--borda));padding-inline:var(--borda)}
-.topo-nav-linha{display:flex;gap:clamp(18px,3vw,36px);overflow-x:auto;scrollbar-width:none;padding-block:4px}
+.topo-nav{flex:1 1 auto;min-width:0;display:flex;justify-content:flex-end}
+.topo-nav-linha{flex:0 1 auto;min-width:0;display:flex;gap:clamp(18px,2.2vw,32px);overflow-x:auto;scrollbar-width:none}
 .topo-nav-linha::-webkit-scrollbar{display:none}
 .topo-nav-linha.mais-direita{-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 44px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 44px),transparent)}
 .topo-nav-linha.mais-esquerda{-webkit-mask-image:linear-gradient(270deg,#000 calc(100% - 44px),transparent);mask-image:linear-gradient(270deg,#000 calc(100% - 44px),transparent)}
 .topo-nav-linha.mais-esquerda.mais-direita{-webkit-mask-image:linear-gradient(90deg,transparent,#000 44px,#000 calc(100% - 44px),transparent);mask-image:linear-gradient(90deg,transparent,#000 44px,#000 calc(100% - 44px),transparent)}
+/* 44 de altura para o toque (validação de 11/11/2026) */
 .topo-nav a{
-  flex:none;position:relative;padding:7px 0 8px;
+  flex:none;position:relative;min-width:44px;padding:13px 0;text-align:center;
   font:500 .96875rem/1.2 var(--fonte);color:var(--texto);text-decoration:none;white-space:nowrap;
 }
 .topo-nav a:hover{color:var(--azul-texto)}
 .topo-nav a:focus-visible{outline-offset:1px}
 .topo-nav a[aria-current="page"]{color:var(--escuro);font-weight:650}
-.topo-nav a[aria-current="page"]::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:3px;background:var(--azul)}
+.topo-nav a[aria-current="page"]::after{content:"";position:absolute;left:0;right:0;bottom:2px;height:3px;background:var(--azul)}
 
-/* uma linha só a partir de 1540 px, que é onde cabem os seis itens com o nome completo dos
-   serviços foco (11/11/2026); abaixo disso, logo e contato em cima e o menu embaixo */
-@media (min-width:1540px){
-  .topo-linha{grid-template-columns:auto minmax(0,1fr) auto;grid-template-areas:"logo nav contato";column-gap:clamp(24px,3vw,40px);padding-block:12px}
-  .topo-logo{padding-block:0}
-  .topo-nav{border-top:0;margin-inline:0;padding-inline:0;justify-self:center}
-  .topo-nav-linha{gap:clamp(20px,2.2vw,32px);padding-block:0;overflow:visible}
-  .topo-nav a{padding-block:10px}
-  .topo-nav a[aria-current="page"]::after{bottom:2px}
-}
-
-@media (max-width:560px){
-  .topo-fone{display:none}
+/* celular: o logo em cima e o menu embaixo, de ponta a ponta, rolando de lado */
+@media (max-width:759px){
+  .topo-linha{flex-wrap:wrap}
+  .topo-logo{padding-block:10px}
   .topo-logo img{height:28px}
-  .topo .botao-menor{font-size:.9375rem;padding-inline:.85em;white-space:nowrap}
-  .topo .botao-menor .ic-whats{display:none}
+  .topo-nav{flex-basis:100%;justify-content:flex-start;border-top:1px solid var(--fio);margin-inline:calc(-1 * var(--borda));padding-inline:var(--borda)}
+  .topo-nav a[aria-current="page"]::after{bottom:0}
 }
 @media (max-width:340px){
-  .topo-linha{gap:10px}
   .topo-logo img{height:24px}   /* 100 de largura, o mínimo do manual para a versão reduzida */
-  /* área de proteção do logo: o botão encolhe para sobrar espaço entre os dois */
-  .topo .botao-menor{font-size:.875rem;padding-inline:.6em}
 }
 
 /* ---------- foto de fundo com véu: abertura e serviços sobre a foto ---------- */
@@ -394,11 +380,6 @@ p{max-width:64ch}
 }
 
 /* ---------- toque no celular: 44 de altura em todo link (validação de 11/11/2026) ---------- */
-@media (max-width:1539px){
-  .topo-nav-linha{padding-block:0}
-  .topo-nav a{padding:13px 0;min-width:44px;text-align:center}
-  .topo-nav a[aria-current="page"]::after{bottom:0}
-}
 @media (max-width:899px){
   .ident-dados dd a,.rodape p a,.situacoes p a,.escopo-grupo li a{display:inline-flex;align-items:center;min-height:44px}
   .rodape-fim a,.rodape-cookies{display:inline-flex;align-items:center;min-height:44px}
