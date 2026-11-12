@@ -148,8 +148,9 @@ p{max-width:64ch}
 .topo-nav a[aria-current="page"]{color:var(--escuro);font-weight:650}
 .topo-nav a[aria-current="page"]::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:3px;background:var(--azul)}
 
-/* uma linha só a partir de 1260 px: logo, menu ao centro e contato à direita */
-@media (min-width:1260px){
+/* uma linha só a partir de 1540 px, que é onde cabem os seis itens com o nome completo dos
+   serviços foco (11/11/2026); abaixo disso, logo e contato em cima e o menu embaixo */
+@media (min-width:1540px){
   .topo-linha{grid-template-columns:auto minmax(0,1fr) auto;grid-template-areas:"logo nav contato";column-gap:clamp(24px,3vw,40px);padding-block:12px}
   .topo-logo{padding-block:0}
   .topo-nav{border-top:0;margin-inline:0;padding-inline:0;justify-self:center}
@@ -390,7 +391,7 @@ p{max-width:64ch}
 }
 
 /* ---------- toque no celular: 44 de altura em todo link (validação de 11/11/2026) ---------- */
-@media (max-width:1259px){
+@media (max-width:1539px){
   .topo-nav-linha{padding-block:0}
   .topo-nav a{padding:13px 0;min-width:44px;text-align:center}
   .topo-nav a[aria-current="page"]::after{bottom:0}
