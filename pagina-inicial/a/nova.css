@@ -305,7 +305,7 @@ p{max-width:64ch}
 .rodape-marca{margin-bottom:14px;line-height:1}
 .rodape-marca img{width:auto;height:56px}   /* versão completa, 169 de largura (mínimo do manual: 160) */
 .rodape p{line-height:1.7}
-.rodape-prestador{margin-top:14px;font-size:.875rem;line-height:1.55;max-width:38ch}
+.rodape-prestador{font-size:.875rem;line-height:1.55;max-width:38ch}
 /* o único número escrito no site: leva ao WhatsApp, para todo contato ter origem (12/11/2026) */
 .rodape-whats{display:inline-flex;align-items:center;gap:8px;font-weight:600}
 .rodape-whats .ic-whats{width:1.25em;height:1.25em;color:var(--zap)}
