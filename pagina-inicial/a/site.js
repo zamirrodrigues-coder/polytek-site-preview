@@ -45,17 +45,16 @@
   sinalizar();
 })();
 
-/* ---------- rastreamento de contatos (Google Ads) ----------
-   Mesmo comportamento das páginas antigas: clique em WhatsApp, telefone ou e-mail
-   envia um evento nomeado e, quando há rótulo, a conversão. Os rótulos vêm de
-   window.POLYTEK, definido no topo da página a partir de src/site.json. */
+/* ---------- eventos de contato ----------
+   Clique em WhatsApp, telefone, e-mail ou no link de mapa avisa o Tag Manager, com a página de
+   origem. Quem dispara a conversão do Google Ads e o evento do Analytics é a configuração do
+   Tag Manager (docs/medicao/gtm-container.json). Sem o Tag Manager carregado, o aviso fica na
+   fila e nada é enviado. */
 (function(){
-  if (typeof gtag !== 'function') return;
-  var rotulos = window.POLYTEK || {};
+  window.dataLayer = window.dataLayer || [];
 
   function registrar(tipo, destino){
-    gtag('event', 'contato_' + tipo, { metodo: tipo, pagina: location.pathname, destino: destino || '' });
-    if (rotulos[tipo]) gtag('event', 'conversion', { send_to: rotulos[tipo] });
+    window.dataLayer.push({ event: 'contato_' + tipo, contato_metodo: tipo, pagina_origem: location.pathname, link_destino: destino || '' });
   }
 
   document.addEventListener('click', function(ev){
@@ -65,6 +64,7 @@
     if (href.indexOf('api.whatsapp.com') !== -1 || href.indexOf('wa.me') !== -1) registrar('whatsapp', href);
     else if (href.indexOf('tel:') === 0) registrar('telefone', href);
     else if (href.indexOf('mailto:') === 0) registrar('email', href);
+    else if (href.indexOf('google.com/maps') !== -1) registrar('rota', href);
   }, true);
 })();
 
@@ -103,8 +103,8 @@
     el.setAttribute('aria-label', 'Aviso sobre Cookies');
     el.tabIndex = -1;
     el.innerHTML =
-      '<p><strong>Este site usa cookies.</strong> Usamos cookies de publicidade para medir quantas pessoas ' +
-      'chegam até nós pelos anúncios. Você pode recusar sem perder nenhuma função do site. ' +
+      '<p><strong>Este site usa cookies.</strong> Usamos cookies do Google para medir as visitas ao site e quantas ' +
+      'pessoas chegam até nós pelos anúncios. Você pode recusar sem perder nenhuma função do site. ' +
       '<a href="/polytek-site-preview/pagina-inicial/politica-de-privacidade/">Política de Privacidade</a></p>' +
       '<div><button type="button" data-recusar>Recusar</button>' +
       '<button type="button" data-aceitar>Aceitar</button></div>';
