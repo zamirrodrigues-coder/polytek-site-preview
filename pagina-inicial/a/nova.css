@@ -197,6 +197,8 @@ p{max-width:64ch}
 .lado-foto{margin:0;aspect-ratio:4/3;overflow:hidden;border-radius:6px;background:var(--nevoa)}
 .lado-foto img{width:100%;height:100%;object-fit:cover}
 .lado-texto h2{margin-bottom:20px}
+/* promessa logo abaixo do título do produto (Infraestrutura por Assinatura, 12/11/2026) */
+.lado-texto h2 + .lado-promessa{margin:-6px 0 22px;font-size:clamp(1.125rem,1.6vw,1.3125rem);font-weight:600;line-height:1.4;color:var(--azul-texto);max-width:40ch}
 @media (min-width:900px){
   .lado{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(48px,6vw,96px)}
   .lado-foto{aspect-ratio:auto;height:100%;min-height:440px}
