@@ -322,6 +322,10 @@ p{max-width:64ch}
 .rodape-hora{margin-top:12px}
 .rodape-whats{display:inline-flex;align-items:center;gap:8px;font-weight:600}
 .rodape-whats .ic-whats{width:1.25em;height:1.25em;color:var(--zap)}
+/* Instagram da Polytek no rodapé (o mesmo do site atual), 17/11/2026. */
+.rodape-social{margin-top:12px}
+.rodape-insta{display:inline-flex;align-items:center;gap:8px;font-weight:600;color:#fff}
+.rodape-insta .ic-insta{width:1.2em;height:1.2em;flex:none}
 .rodape-fim{display:flex;flex-wrap:wrap;gap:8px 28px;margin-top:36px;padding-top:20px;border-top:1px solid #263c52;font-size:.9375rem}
 .rodape-cookies{background:none;border:0;padding:0;font:inherit;color:#fff;cursor:pointer}
 .rodape-cookies:hover{text-decoration:underline}
@@ -366,7 +370,7 @@ p{max-width:64ch}
 
 /* ---------- toque no celular: 44 de altura em todo link (validação de 11/11/2026) ---------- */
 @media (max-width:899px){
-  .rodape p a,.rodape-unidades a,.situacoes p a,.escopo-grupo li a{display:inline-flex;align-items:center;min-height:44px}
+  .rodape p a,.rodape-unidades a,.rodape-insta,.situacoes p a,.escopo-grupo li a{display:inline-flex;align-items:center;min-height:44px}
   .rodape-fim a,.rodape-cookies{display:inline-flex;align-items:center;min-height:44px}
 }
 @media (max-width:759px){
