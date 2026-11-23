@@ -440,7 +440,6 @@ p{max-width:64ch}
 .fale-provas{display:flex;flex-direction:column;gap:6px;margin:16px 0 0;padding:0;list-style:none;font-size:.9375rem;color:var(--sobre-azul)}
 .fale-provas li{display:flex;flex-wrap:wrap;align-items:baseline;column-gap:6px}
 .fale-provas strong{font-weight:600}
-.fale-provas span{opacity:.85}
 .fale-botao{width:100%}
 .ic-seta{width:1.1em;height:1.1em;flex:none}
 @media (min-width:768px){

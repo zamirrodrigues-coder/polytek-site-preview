@@ -152,16 +152,13 @@
    Sem script, o formulário é enviado como formulário comum e o CRM devolve para a página de
    obrigado ou de erro. Com script, o envio é feito aqui, com os dados de origem do anúncio
    (guardados só depois do aceite de cookies) e o identificador do Analytics, se houver.
-   O evento contato_formulario só é disparado depois de o CRM confirmar o envio. */
+   O evento contato_formulario só nasce da resposta de sucesso do CRM. A página de obrigado não
+   conta (Fatia 24, 22/11/2026): abrir o endereço dela não é contato, e quem envia sem script
+   também não roda o Tag Manager. */
 (function(){
   window.dataLayer = window.dataLayer || [];
   var EVENTO = { event: 'contato_formulario', contato_metodo: 'formulario', pagina_origem: location.pathname, link_destino: '' };
 
-  /* página de obrigado: o envio sem script chega aqui. Conta uma vez por aba. */
-  if (/\/contato\/obrigado\/$/.test(location.pathname)) {
-    var ja = false; try { ja = sessionStorage.getItem('polytek_formulario_contado') === '1'; } catch(e){}
-    if (!ja) { window.dataLayer.push(EVENTO); try { sessionStorage.setItem('polytek_formulario_contado', '1'); } catch(e){} }
-  }
   /* página de erro: o motivo vem no endereço */
   var motivo = (location.search.match(/[?&]motivo=([a-z]+)/) || [])[1];
   var textoMotivo = { limite: 'Recebemos muitos envios em pouco tempo. Espere alguns minutos e tente de novo, ou fale pelo WhatsApp.',
