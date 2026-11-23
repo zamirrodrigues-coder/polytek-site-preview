@@ -1,0 +1,620 @@
+/* ============================================================
+   Polytek, direção nova (Fatia 1.2). Cores, fontes e medidas da
+   direção nova ficam só aqui.
+   Cores do manual de marca, aprovado pelo Zamir em 11/11/2026: Azul Polytek, Marinho, Texto,
+   Texto Suave e Névoa (registro em docs/gates/Fatia-7-Manual-de-Marca.md).
+   Ideia do desenho: a foto conta parte da história. Abertura de
+   foto inteira, azul do logo em blocos cheios, branco, um escuro
+   e um acento quente só no botão principal. Fonte neutra (Inter),
+   hospedada no próprio site.
+   ============================================================ */
+@font-face{
+  font-family:'Inter';
+  src:url(fontes/inter-variavel.woff2) format('woff2');
+  font-weight:100 900;font-style:normal;font-display:swap;
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+:root{
+  --papel:#ffffff;
+  --nevoa:#eef2f5;
+  --fio:#d5dde5;
+  --texto:#1b2733;
+  --texto-suave:#52606d;
+  --azul:#0170ba;          /* Azul Polytek, o azul do logo (manual de marca): blocos cheios, com texto branco (5,2:1) */
+  --azul-texto:#0170ba;    /* links e detalhes: o mesmo azul, 5,2:1 sobre o branco e 4,6:1 sobre a névoa */
+  --azul-claro:#8cc4ee;    /* marcas sobre o escuro */
+  --escuro:#0e2235;        /* o escuro: rodapé e véu das fotos */
+  --quente:#bf5410;        /* acento quente: só nos botões principais (4,7:1 com o branco). Fora do manual
+                              de marca, mantido por decisão do Zamir em 12/11/2026 ("Manter laranja") */
+  --quente-forte:#9f450b;
+  --zap:#1fa855;
+  --sobre-azul:#ffffff;    /* texto de apoio sobre o azul: branco, 5,2:1 */
+  --sobre-escuro:#d3dee8;  /* texto de apoio sobre o escuro */
+
+  --fonte:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+
+  --largura:1200px;
+  --borda:clamp(20px,5vw,48px);
+  --respiro:clamp(56px,8vw,112px);
+  --respiro-curto:clamp(40px,5vw,64px);
+  --topo-altura:112px;     /* cabeçalho fixo; o script troca pela altura medida */
+  --folga-foco:8px;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+/* O que recebe foco nunca rola para trás do cabeçalho fixo nem do aviso de cookies. */
+html{
+  -webkit-text-size-adjust:100%;scroll-behavior:smooth;
+  scroll-padding-top:calc(var(--topo-altura) + var(--folga-foco));
+  scroll-padding-bottom:calc(var(--aviso-altura,0px) + var(--folga-foco));
+}
+body{
+  margin:0;
+  padding-bottom:var(--aviso-altura,0px);
+  background:var(--papel);
+  color:var(--texto);
+  font:400 1.0625rem/1.65 var(--fonte);
+  -webkit-font-smoothing:antialiased;
+}
+img,svg{max-width:100%;height:auto;display:block}
+h1,h2,h3,p,ul,ol,dl,dd{margin:0}
+ul,ol{padding:0;list-style:none}
+a{color:var(--azul-texto);text-underline-offset:.18em}
+a:hover{color:var(--escuro)}
+:focus-visible{outline:3px solid var(--azul);outline-offset:3px;border-radius:2px}
+
+h1,h2,h3{font-family:var(--fonte);color:var(--escuro);text-wrap:balance}
+h1{font-size:clamp(2.25rem,5vw,3.75rem);font-weight:700;line-height:1.06;letter-spacing:-.025em}
+h2{font-size:clamp(1.75rem,3.1vw,2.5rem);font-weight:700;line-height:1.14;letter-spacing:-.02em}
+h3{font-size:1.1875rem;font-weight:650;line-height:1.3;letter-spacing:-.01em}
+p{max-width:64ch}
+
+.caixa{width:100%;max-width:calc(var(--largura) + 2 * var(--borda));margin-inline:auto;padding-inline:var(--borda)}
+
+.pular{position:absolute;left:-999px;top:8px;background:var(--escuro);color:#fff;padding:10px 14px;z-index:100}
+.pular:focus{left:8px}
+
+/* ---------- botões ---------- */
+.botao{
+  display:inline-flex;align-items:center;justify-content:center;gap:.55em;
+  min-height:52px;padding:.7em 1.4em;
+  font:600 1.0625rem/1.15 var(--fonte);
+  text-decoration:none;border-radius:6px;border:2px solid var(--azul-texto);
+  transition:background-color .15s,color .15s,border-color .15s;
+}
+/* o acento quente fica só nos botões principais: Pedir Visita Técnica e Enviar Mensagem (12/11/2026) */
+.botao-cheio{background:var(--quente);border-color:var(--quente);color:#fff}
+.botao-cheio:hover{background:var(--quente-forte);border-color:var(--quente-forte);color:#fff}
+.botao-linha{background:transparent;color:var(--azul-texto)}
+.botao-linha:hover{background:var(--azul-texto);color:#fff}
+.botao-menor{min-height:44px;font-size:1rem;padding:.55em 1.05em}
+.ic-whats{width:1.3em;height:1.3em;fill:currentColor;flex:none}
+
+.contato{display:flex;flex-wrap:wrap;gap:12px}
+
+/* fundos escuros ou azuis: textos e o botão secundário invertem; o principal fica quente */
+.sobre-escuro{color:#fff}
+.sobre-escuro h1,.sobre-escuro h2,.sobre-escuro h3{color:#fff}
+.sobre-escuro .botao-linha{border-color:#fff;color:#fff}
+.sobre-escuro .botao-linha:hover{background:#fff;color:var(--escuro)}
+.sobre-escuro :focus-visible{outline-color:#fff}
+
+/* ---------- seções ---------- */
+.secao{padding-block:var(--respiro)}
+.secao-nevoa{background:var(--nevoa)}
+.secao-curta{padding-block:var(--respiro-curto)}
+.secao-fio{position:relative}
+.secao-fio::before{
+  content:"";position:absolute;top:0;height:1px;background:var(--fio);
+  left:max(var(--borda),calc((100% - var(--largura)) / 2));right:max(var(--borda),calc((100% - var(--largura)) / 2));
+}
+.abre{max-width:720px;margin-bottom:clamp(28px,4vw,48px)}
+.abre p{margin-top:14px;color:var(--texto-suave)}
+.duas{display:grid;gap:clamp(20px,3vw,32px)}
+.prosa p + p{margin-top:1em}
+.depois{margin-top:clamp(32px,5vw,52px)}
+
+@media (min-width:900px){
+  .duas{grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(40px,6vw,88px);align-items:start}
+}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none !important;transition:none !important}
+}
+
+/* ---------- cabeçalho ----------
+   Só o logo e o menu (os serviços e Contato), em uma linha (pedido do Zamir em 12/11/2026). Pedir
+   Visita Técnica e Ligar ficam nas dobras da página e no botão flutuante.
+   Onde o menu não cabe inteiro, ele rola de lado, com a borda esmaecida avisando que há mais. */
+.topo{position:sticky;top:0;z-index:50;background:var(--papel);border-bottom:1px solid var(--fio)}
+.topo-linha{display:flex;align-items:center;column-gap:clamp(20px,3vw,40px)}
+/* logo: a versão reduzida do manual de marca (só Polytek), que é a do cabeçalho. A completa,
+   com Infraestrutura, fica no rodapé. A palavra nunca é redigitada em texto. */
+.topo-logo{flex:none;display:flex;align-items:center;padding-block:12px;text-decoration:none}
+.topo-logo img{width:auto;max-width:none;height:32px}
+.topo-nav{flex:1 1 auto;min-width:0;display:flex;justify-content:flex-end}
+.topo-nav-linha{flex:0 1 auto;min-width:0;display:flex;gap:clamp(18px,2.2vw,32px);overflow-x:auto;scrollbar-width:none}
+.topo-nav-linha::-webkit-scrollbar{display:none}
+/* Sete itens numa linha (Zamir, 17/11/2026): o cabeçalho usa até 1680 de largura, mais que o
+   conteúdo, e o espaço entre os itens vai de 15px em 1280 a 80px em 1920 (mais espaço, pedido dele
+   no mesmo dia), sempre deixando ao menos 40px entre o logo e o menu. */
+.topo .caixa{max-width:calc(1680px + 2 * var(--borda))}
+@media (min-width:1100px){.topo-nav-linha{gap:clamp(13px,calc(14.4vw - 171px),80px)}}
+@media (min-width:1600px){.topo-nav-linha a{font-size:16.5px}.topo-logo img{height:36px}}
+.topo-nav-linha.mais-direita{-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 44px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 44px),transparent)}
+.topo-nav-linha.mais-esquerda{-webkit-mask-image:linear-gradient(270deg,#000 calc(100% - 44px),transparent);mask-image:linear-gradient(270deg,#000 calc(100% - 44px),transparent)}
+.topo-nav-linha.mais-esquerda.mais-direita{-webkit-mask-image:linear-gradient(90deg,transparent,#000 44px,#000 calc(100% - 44px),transparent);mask-image:linear-gradient(90deg,transparent,#000 44px,#000 calc(100% - 44px),transparent)}
+/* 44 de altura para o toque (validação de 11/11/2026) */
+.topo-nav a{
+  flex:none;position:relative;min-width:44px;padding:13px 0;text-align:center;
+  font:500 .96875rem/1.2 var(--fonte);color:var(--texto);text-decoration:none;white-space:nowrap;
+}
+.topo-nav a:hover{color:var(--azul-texto)}
+.topo-nav a:focus-visible{outline-offset:1px}
+.topo-nav a[aria-current="page"]{color:var(--escuro);font-weight:650}
+.topo-nav a[aria-current="page"]::after{content:"";position:absolute;left:0;right:0;bottom:2px;height:3px;background:var(--azul)}
+
+/* celular: o logo em cima e o menu embaixo, de ponta a ponta, rolando de lado */
+@media (max-width:759px){
+  .topo-linha{flex-wrap:wrap}
+  .topo-logo{padding-block:10px}
+  .topo-logo img{height:28px}
+  .topo-nav{flex-basis:100%;justify-content:flex-start;border-top:1px solid var(--fio);margin-inline:calc(-1 * var(--borda));padding-inline:var(--borda)}
+  .topo-nav a[aria-current="page"]::after{bottom:0}
+}
+@media (max-width:340px){
+  .topo-logo img{height:24px}   /* 100 de largura, o mínimo do manual para a versão reduzida */
+}
+
+/* ---------- foto de fundo com véu: abertura e serviços sobre a foto ---------- */
+.foto-fundo{position:relative;isolation:isolate;overflow:hidden;background:var(--escuro)}
+.foto-fundo > img{position:absolute;inset:0;z-index:-2;width:100%;height:100%;max-width:none;object-fit:cover}
+.foto-fundo::before{content:"";position:absolute;inset:0;z-index:-1}
+
+/* ---------- abertura: foto de ponta a ponta, título sobre ela ---------- */
+.abertura{display:flex;align-items:flex-end;min-height:clamp(540px,78vh,720px);padding-block:clamp(64px,10vw,120px) clamp(48px,7vw,88px)}
+.abertura > img{object-position:62% 50%}
+.abertura::before{background:linear-gradient(90deg,rgba(10,26,42,.9) 0%,rgba(10,26,42,.78) 42%,rgba(10,26,42,.25) 78%,rgba(10,26,42,.1) 100%)}
+.abertura-texto{max-width:680px}
+.capacidade{display:inline-block;margin-bottom:18px;padding:6px 12px;border-radius:4px;background:var(--azul);font:600 .9375rem/1.2 var(--fonte);color:#fff}
+.abertura-apoio{margin-top:20px;font-size:clamp(1.0625rem,1.5vw,1.25rem);line-height:1.55;color:#eef3f8;max-width:52ch}
+.abertura .contato{margin-top:32px}
+@media (max-width:700px){
+  .abertura{min-height:0;padding-top:clamp(48px,16vw,110px)}
+  .abertura > img{object-position:70% 50%}
+  .abertura::before{background:linear-gradient(180deg,rgba(10,26,42,.35) 0%,rgba(10,26,42,.82) 38%,rgba(10,26,42,.94) 100%)}
+}
+
+/* ---------- faixa de fatos: bloco cheio no azul do logo ---------- */
+.fatos-faixa{background:var(--azul);color:#fff}
+.fatos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0}
+.fatos li{padding:24px 20px 26px 0;display:flex;flex-direction:column;gap:4px}
+.fatos strong{font-size:clamp(1.125rem,1.8vw,1.3125rem);font-weight:700;line-height:1.2;letter-spacing:-.01em}
+.fatos span{font-size:.9375rem;line-height:1.4;color:var(--sobre-azul)}
+@media (min-width:900px){
+  .fatos{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr)}
+  .fatos li{padding:34px 28px 36px 0}
+  .fatos li + li{padding-left:28px;border-left:1px solid rgba(255,255,255,.3)}
+}
+
+/* ---------- foto e texto lado a lado ---------- */
+.lado{display:grid;gap:clamp(28px,4vw,40px);align-items:center}
+.lado-foto{margin:0;aspect-ratio:4/3;overflow:hidden;border-radius:6px;background:var(--nevoa)}
+.lado-foto img{width:100%;height:100%;object-fit:cover}
+.lado-texto h2{margin-bottom:20px}
+/* promessa logo abaixo do título do produto (Infraestrutura por Assinatura, 12/11/2026) */
+.lado-texto h2 + .lado-promessa{margin:-6px 0 22px;font-size:clamp(1.125rem,1.6vw,1.3125rem);font-weight:600;line-height:1.4;color:var(--azul-texto);max-width:40ch}
+@media (min-width:900px){
+  .lado{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(48px,6vw,96px)}
+  .lado-foto{aspect-ratio:auto;height:100%;min-height:440px}
+  .lado-inverso > :first-child{order:2}   /* foto à direita, alternando as dobras (Infraestrutura por Assinatura) */
+}
+
+/* ---------- situações: seis peças curtas ---------- */
+.situacoes{display:grid;gap:16px}
+.situacoes li{background:var(--papel);padding:26px 26px 28px;border-radius:6px;border-top:3px solid var(--azul)}
+.situacoes h3{margin-bottom:8px}
+.situacoes p{font-size:1rem;color:var(--texto-suave)}
+@media (min-width:640px){.situacoes{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:1000px){.situacoes{grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}}
+
+/* ---------- foto com a legenda em faixa, na base da foto (Rede Interna, 11/11/2026) ---------- */
+.foto-faixa{position:relative;align-self:center}
+.foto-faixa .legenda{position:absolute;left:0;right:0;bottom:0;margin:0;display:flex;align-items:center;gap:14px;padding:14px 20px;border-radius:0 0 6px 6px;background:rgba(14,34,53,.92);color:#fff;font-size:.9375rem;line-height:1.4}
+.foto-faixa .legenda svg{flex:none;box-sizing:content-box;width:28px;height:28px;padding-right:14px;border-right:1px solid rgba(255,255,255,.35);fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+@media (min-width:900px){
+  .lado-figura.foto-faixa{height:auto}
+  .lado-figura.foto-faixa .lado-foto{aspect-ratio:1/1}
+}
+
+/* três provas em linha, com ícone, sob o texto */
+.trio{display:grid;gap:16px;margin-top:28px}
+.trio li{display:flex;align-items:center;gap:12px}
+.trio svg{flex:none;width:34px;height:34px;fill:none;stroke:var(--azul);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.trio p{font-size:.9375rem;line-height:1.35;color:var(--texto-suave)}
+.trio strong{display:block;font-size:1rem;color:var(--escuro)}
+@media (min-width:560px){
+  .trio{grid-template-columns:repeat(3,minmax(0,1fr));gap:0}
+  .trio li{padding-right:14px}
+  .trio li + li{padding-left:18px;border-left:1px solid var(--fio)}
+}
+.lado-fecho{margin-top:28px}
+
+/* ---------- cenários: foto pequena ao lado do texto, sem caixa ---------- */
+.cenarios{display:grid;gap:28px}
+.cenarios li{display:grid;grid-template-columns:96px minmax(0,1fr);gap:18px;align-items:center}
+.cenarios img{display:block;width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;border-radius:6px;background:var(--fio)}
+.cenarios h3{margin-bottom:6px}
+.cenarios p{font-size:1rem;color:var(--texto-suave)}
+@media (min-width:640px){.cenarios{grid-template-columns:repeat(2,minmax(0,1fr));gap:36px 32px}}
+@media (min-width:1000px){
+  .cenarios{grid-template-columns:repeat(3,minmax(0,1fr));gap:48px 40px}
+  .cenarios li{grid-template-columns:136px minmax(0,1fr);gap:22px}
+}
+
+/* ---------- serviços sobre a foto ---------- */
+.servicos{padding-block:var(--respiro)}
+/* véu mais forte à esquerda, onde começa o texto; a foto aparece à direita e entre os grupos */
+.servicos::before{background:linear-gradient(90deg,rgba(10,26,42,.84) 0%,rgba(10,26,42,.66) 55%,rgba(10,26,42,.5) 100%)}
+@media (max-width:760px){.servicos::before{background:rgba(10,26,42,.78)}}
+.servicos .abre p{color:var(--sobre-escuro)}
+.escopo{display:grid;gap:clamp(28px,4vw,40px) clamp(32px,4vw,56px)}
+.escopo-grupo h3{padding-bottom:14px;margin-bottom:16px;border-bottom:2px solid var(--azul)}
+.escopo-grupo li{position:relative;padding-left:20px}
+.escopo-grupo li + li{margin-top:10px}
+.escopo-grupo li::before{content:"";position:absolute;left:0;top:.72em;width:8px;height:8px;margin-top:-4px;border-radius:50%;background:var(--azul)}
+.servicos .escopo-grupo li{color:var(--sobre-escuro)}
+.servicos .escopo-grupo li::before{background:var(--azul-claro)}
+.servicos .escopo-grupo h3{border-bottom-color:var(--azul-claro)}
+.escopo-fecho{position:relative;max-width:none;margin-top:clamp(24px,3.5vw,36px);padding:14px 0 0 20px;border-top:1px solid var(--fio)}
+@media (min-width:760px){.escopo{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:980px){
+  .escopo:has(> .escopo-grupo:nth-child(3):last-child){grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+
+/* ---------- passos: sequência real, numerada ---------- */
+.passos{counter-reset:passo;display:grid;gap:22px}
+.passos li{counter-increment:passo;position:relative;padding-left:64px}
+.passos li::before{
+  content:counter(passo);position:absolute;left:0;top:0;width:44px;height:44px;
+  display:grid;place-items:center;border-radius:6px;
+  background:var(--azul);font:700 1.125rem/1 var(--fonte);color:#fff;
+}
+.passos h3{padding-top:9px;margin-bottom:6px}
+.passos p{font-size:1rem;color:var(--texto-suave)}
+@media (min-width:1000px){
+  .passos{grid-template-columns:repeat(5,minmax(0,1fr));gap:28px}
+  .passos li{padding:64px 0 0}
+  .passos li::after{content:"";position:absolute;left:56px;right:-16px;top:22px;height:2px;background:var(--fio)}
+  .passos li:last-child::after{display:none}
+  .passos h3{padding-top:0}
+}
+
+/* ---------- dúvidas ---------- */
+.duvidas details{border-top:1px solid var(--fio)}
+.duvidas details:last-child{border-bottom:1px solid var(--fio)}
+.duvidas summary{
+  display:flex;justify-content:space-between;align-items:center;gap:16px;
+  padding:18px 0;cursor:pointer;list-style:none;
+  font:600 1.0625rem/1.35 var(--fonte);color:var(--escuro);
+}
+.duvidas summary::-webkit-details-marker{display:none}
+.duvidas summary::after{content:"+";flex:none;font:400 1.75rem/1 var(--fonte);color:var(--azul-texto)}
+.duvidas details[open] summary::after{content:"\2212"}
+.duvidas details p{padding-bottom:20px;color:var(--texto-suave)}
+
+/* ---------- rodapé ---------- */
+.rodape{background:var(--escuro);color:#c6d2de;padding-block:clamp(40px,6vw,64px) 28px;font-size:1rem}
+.rodape a{color:#fff;text-decoration:none}
+.rodape a:hover{text-decoration:underline}
+.rodape h2{font:650 1rem/1.2 var(--fonte);letter-spacing:0;color:#fff;margin-bottom:12px}
+.rodape-grade{display:grid;gap:32px}
+.rodape nav a{display:block;padding-block:4px}
+.rodape-marca{margin-bottom:14px;line-height:1}
+.rodape-marca img{width:auto;height:56px}   /* versão completa, 169 de largura (mínimo do manual: 160) */
+.rodape p{line-height:1.7}
+.rodape-prestador{font-size:.875rem;line-height:1.55;max-width:38ch}
+/* o único número escrito no site: leva ao WhatsApp, para todo contato ter origem (12/11/2026) */
+.rodape-unidades{display:grid;gap:12px}
+.rodape-unidades dt{font:700 .75rem/1.3 var(--fonte);letter-spacing:.12em;text-transform:uppercase;color:var(--azul-claro);margin-bottom:2px}
+.rodape-unidades dd{color:#fff;font-weight:600;line-height:1.5}
+.rodape-hora{margin-top:12px}
+.rodape-whats{display:inline-flex;align-items:center;gap:8px;font-weight:600}
+.rodape-whats .ic-whats{width:1.25em;height:1.25em;color:var(--zap)}
+/* Instagram da Polytek no rodapé (o mesmo do site atual), 17/11/2026. */
+.rodape-social{margin-top:12px}
+.rodape-insta{display:inline-flex;align-items:center;gap:8px;font-weight:600;color:#fff}
+.rodape-insta .ic-insta{width:1.2em;height:1.2em;flex:none}
+.rodape-fim{display:flex;flex-wrap:wrap;gap:8px 28px;margin-top:36px;padding-top:20px;border-top:1px solid #263c52;font-size:.9375rem}
+.rodape-cookies{background:none;border:0;padding:0;font:inherit;color:#fff;cursor:pointer}
+.rodape-cookies:hover{text-decoration:underline}
+@media (min-width:760px){
+  .rodape-grade{grid-template-columns:1.3fr 1fr 1fr 1.1fr}
+}
+
+/* ---------- botão flutuante do WhatsApp ---------- */
+.zap{
+  position:fixed;right:clamp(14px,3vw,26px);bottom:calc(clamp(14px,3vw,26px) + var(--aviso-altura,0px));z-index:60;
+  display:grid;place-items:center;width:56px;height:56px;border-radius:50%;
+  background:var(--zap);color:#fff;border:2px solid #fff;
+}
+.zap:hover{background:#178a45;color:#fff}
+.zap .ic-whats{width:30px;height:30px}
+@media (max-width:560px){
+  .zap{width:48px;height:48px}
+  .zap .ic-whats{width:26px;height:26px}
+}
+
+/* ---------- aviso de cookies ---------- */
+.aviso-cookies{
+  position:fixed;left:0;right:0;bottom:0;z-index:70;
+  background:var(--papel);border-top:1px solid var(--fio);box-shadow:0 -6px 24px rgba(14,34,53,.12);
+  padding:16px var(--borda);
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px 28px;
+}
+.aviso-cookies p{font-size:.9375rem;max-width:74ch}
+.aviso-cookies div{display:flex;gap:10px}
+.aviso-cookies button{
+  min-height:44px;padding:.5em 1.2em;border-radius:6px;border:2px solid var(--azul-texto);
+  font:600 1rem/1 var(--fonte);cursor:pointer;background:transparent;color:var(--azul-texto);
+}
+.aviso-cookies button[data-aceitar]{background:var(--azul-texto);color:#fff}
+.aviso-cookies:focus{outline:none}
+@media (max-width:560px){
+  .aviso-cookies{padding:10px 12px;gap:8px}
+  .aviso-cookies p{font-size:.8125rem;line-height:1.38}
+  .aviso-cookies div{width:100%}
+  .aviso-cookies button{flex:1;min-height:40px}
+}
+
+/* ---------- toque no celular: 44 de altura em todo link (validação de 11/11/2026) ---------- */
+@media (max-width:899px){
+  .rodape p a,.rodape-unidades a,.rodape-insta,.situacoes p a,.escopo-grupo li a{display:inline-flex;align-items:center;min-height:44px}
+  .rodape-fim a,.rodape-cookies{display:inline-flex;align-items:center;min-height:44px}
+}
+@media (max-width:759px){
+  .rodape nav a{padding-block:9px}
+}
+
+/* ---------- formulário de contato (12/11/2026) ---------- */
+.formulario{display:grid;gap:18px 24px;padding:clamp(22px,3vw,32px);background:var(--nevoa);border-radius:6px}
+.campo{display:grid;gap:6px}
+.campo label{font:600 .9375rem/1.3 var(--fonte);color:var(--escuro)}
+.campo-opcional{font-weight:400;color:var(--texto-suave)}
+.campo input,.campo textarea{
+  width:100%;min-height:48px;padding:11px 14px;border:1px solid #8a97a5;border-radius:6px;background:var(--papel);
+  font:400 1rem/1.4 var(--fonte);color:var(--texto);
+}
+.campo textarea{min-height:132px;resize:vertical}
+.campo input:focus-visible,.campo textarea:focus-visible{outline:3px solid var(--azul);outline-offset:1px;border-color:var(--azul)}
+.campo [aria-invalid="true"]{border-color:#b3261e}
+.campo-nota,.form-aviso{font-size:.9375rem;color:var(--texto-suave)}
+.isca{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.form-retorno:empty{display:none}
+.form-retorno{padding:12px 14px;border-radius:6px;background:var(--papel);border-left:4px solid var(--azul);font-weight:500}
+.form-retorno.erro{border-left-color:#b3261e}
+@media (min-width:760px){
+  .formulario{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .campo-largo,.campo-nota,.form-aviso,.form-envio,.form-retorno{grid-column:1 / -1}
+}
+
+
+/* ---------- unidades: só na página de Contato (12/11/2026) ---------- */
+.unidades{display:grid;gap:24px}
+.unidades > div{padding:22px 24px;background:var(--papel);border-radius:6px}
+.unidades dt{font:700 .8125rem/1.3 var(--fonte);letter-spacing:.12em;text-transform:uppercase;color:var(--azul-texto);margin-bottom:8px}
+.unidades dd{font-size:1rem;line-height:1.6;color:var(--texto)}
+.unidades dd a{display:inline-flex;align-items:center;min-height:44px}
+@media (min-width:640px){.unidades{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* ---------- área de atuação: último bloco antes da faixa e do rodapé (modelo do Zamir, 12/11/2026) ----------
+   Fundo branco, sem cartões: mapa à esquerda, fio vertical, texto à direita e fio de fechamento. */
+.atuacao-secao{padding-block:var(--respiro-curto) 28px}
+.atuacao-secao .abre .sobretitulo{margin-top:0;color:var(--azul-texto)}
+.atuacao-secao .abre{margin-bottom:clamp(24px,3vw,36px)}
+.atuacao-secao .abre p:not(.sobretitulo){font-size:1.125rem;color:var(--texto)}
+.atuacao{display:grid;gap:24px;align-items:center;padding-bottom:clamp(28px,4vw,40px);border-bottom:1px solid var(--fio)}
+.atuacao-mapa{display:block;width:100%;max-width:320px;height:auto;margin-inline:auto}
+.atuacao-titulo{font-size:clamp(1.3125rem,2vw,1.5625rem);font-weight:650;color:var(--azul-texto);margin-bottom:14px}
+.atuacao-principal{font-size:clamp(1.1875rem,1.9vw,1.5rem);font-weight:600;line-height:1.4;color:var(--escuro);max-width:34ch}
+.atuacao-apoio{margin-top:14px;font-size:1.0625rem;color:var(--texto)}
+.atuacao-siglas{display:none}
+/* celular: o texto antes do mapa; as siglas ficam só no mapa */
+.atuacao-texto{order:-1}
+@media (min-width:768px){
+  .atuacao{grid-template-columns:minmax(0,2fr) minmax(0,3fr);gap:0}
+  .atuacao-texto{order:0;padding-left:clamp(32px,5vw,72px);border-left:1px solid var(--fio)}
+  .atuacao-mapa{max-width:360px;margin-inline:auto clamp(32px,5vw,72px)}
+  .atuacao-siglas{display:flex;flex-wrap:wrap;margin-top:24px;font:700 clamp(1.25rem,1.8vw,1.4375rem)/1 var(--fonte);color:var(--azul-texto)}
+  .atuacao-siglas span{padding-inline:clamp(16px,2.2vw,30px);border-left:1px solid var(--fio)}
+  .atuacao-siglas span:first-child{padding-left:0;border-left:0}
+}
+
+/* ---------- faixa Fale com Nosso Time de Especialistas: compacta, no azul do logo ---------- */
+.fale{background:var(--azul);padding-block:clamp(28px,3.4vw,36px)}
+.fale h2{font-size:clamp(1.5rem,2.4vw,1.875rem)}
+.fale p{margin-top:8px;max-width:none;color:var(--sobre-azul);font-size:1.0625rem}
+.fale-linha{display:grid;gap:20px;align-items:center}
+/* Provas da ficha de fatos (Zamir, 17/11/2026): uma linha discreta abaixo do texto. */
+.fale-provas{display:flex;flex-direction:column;gap:6px;margin:16px 0 0;padding:0;list-style:none;font-size:.9375rem;color:var(--sobre-azul)}
+.fale-provas li{display:flex;flex-wrap:wrap;align-items:baseline;column-gap:6px}
+.fale-provas strong{font-weight:600}
+.fale-botao{width:100%}
+.ic-seta{width:1.1em;height:1.1em;flex:none}
+@media (min-width:768px){
+  .fale-linha{grid-template-columns:minmax(0,1fr) auto;gap:40px}
+  .fale-botao{width:auto}
+}
+@media (min-width:1100px){
+  .fale-provas{flex-direction:row}
+  .fale-provas li+li{margin-left:16px;padding-left:16px;border-left:1px solid rgb(255 255 255 / .35)}
+}
+
+/* Caso de Cliente (Fatia 26): foto opcional da obra, sob o título do caso. */
+.caso-foto{margin:24px 0 0}
+.caso-foto img{display:block;width:100%;height:auto}
+
+/* ============================================================
+   Página inicial (Fatia 2). Só o que ela acrescenta.
+   A página usa a tela da direção nova como ela é: abertura com
+   foto de ponta a ponta, faixa de fatos, foto e texto, cartões
+   de situação e faixa escura. Aqui ficam apenas a grade dos
+   serviços com foto, a legenda de foto e o trecho de relatório.
+   ============================================================ */
+
+/* legenda de foto: diz o que é e de quando é */
+.legenda{margin-top:10px;font-size:.875rem;line-height:1.45;color:var(--texto-suave);max-width:none}
+/* legenda da foto de obra que está no fundo da abertura: fica sob os botões */
+.abertura-legenda{margin-top:22px;font-size:.8125rem;line-height:1.45;color:var(--sobre-escuro);max-width:58ch}
+@media (max-width:760px){.abertura-legenda{padding-right:64px}}
+
+/* ligação dentro da faixa escura: branca, para ler sobre a foto */
+.servicos .escopo-grupo a{color:#fff}
+.servicos .escopo-grupo a:hover{color:var(--sobre-escuro)}
+
+/* ---------- serviços com foto: o cartão de situação, com a foto em cima ---------- */
+.grade-servicos{display:grid;gap:14px}
+.servico{display:grid;grid-template-columns:112px minmax(0,1fr);height:100%;overflow:hidden;background:var(--papel);border-radius:6px;border-top:3px solid var(--azul);color:var(--texto);text-decoration:none}
+.servico img{width:100%;height:100%;min-height:112px;object-fit:cover;background:var(--nevoa)}
+.servico-texto{padding:16px 18px 18px;align-self:center}
+.servico h3{margin-bottom:6px}
+.servico p{font-size:.9375rem;line-height:1.5;color:var(--texto-suave)}
+.servico:hover{color:var(--texto)}
+.servico:hover h3{color:var(--azul-texto);text-decoration:underline;text-underline-offset:.18em}
+@media (min-width:640px){
+  .grade-servicos{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+  .servico{display:flex;flex-direction:column;border-top:0}
+  .servico img{height:auto;min-height:0;aspect-ratio:4/3}
+  .servico-texto{flex:1;align-self:stretch;padding:24px 26px 28px;border-top:3px solid var(--azul)}
+  .servico p{font-size:1rem}
+}
+/* oito serviços, quatro por linha */
+@media (min-width:1000px){
+  .grade-servicos{grid-template-columns:repeat(12,minmax(0,1fr));gap:20px}
+  .grade-servicos li{grid-column:span 3}
+}
+
+/* ---------- foto e texto, com legenda sob a foto ---------- */
+.lado-figura{margin:0;display:flex;flex-direction:column}
+/* foto em pé também sai deitada: o quadro manda, a foto se ajusta */
+.lado-figura .lado-foto{aspect-ratio:4/3}
+@media (min-width:900px){
+  .lado-figura{height:100%}
+  .lado-figura .lado-foto{flex:none;height:auto;aspect-ratio:4/3}
+}
+
+/* ---------- trecho de relatório, dentro do texto ---------- */
+.relatorio{width:100%;margin-top:28px;border-collapse:collapse;font-size:.9375rem;line-height:1.45}
+.relatorio caption{caption-side:bottom;padding-top:12px;text-align:left;font-size:.875rem;color:var(--texto-suave)}
+.relatorio th{padding:10px 12px 10px 0;border-bottom:2px solid var(--azul);text-align:left;font-size:.8125rem;font-weight:600;color:var(--texto-suave)}
+.relatorio td{padding:12px 12px 12px 0;border-bottom:1px solid var(--fio);vertical-align:top}
+.relatorio th:last-child,.relatorio td:last-child{padding-right:0;white-space:nowrap}
+.relatorio td:last-child{font-weight:600;color:var(--escuro)}
+
+/* foto em pé recortada em quadro deitado: mostra a parte de cima (a etiqueta do ponto) */
+.foto-alto{object-position:50% 35%}
+
+/* ---------- texto longo (Política de Privacidade) ---------- */
+.texto-longo{max-width:calc(760px + 2 * var(--borda))}
+.texto-longo h2{margin:48px 0 14px;font-size:1.5rem}
+.texto-longo h2:first-child{margin-top:0}
+.texto-longo h3{margin:24px 0 8px;font-size:1.125rem}
+.texto-longo p,.texto-longo li{line-height:1.65;color:var(--texto)}
+.texto-longo p + p{margin-top:.8em}
+.texto-longo ul{margin:8px 0 0;padding-left:22px;list-style:disc}
+.texto-longo li + li{margin-top:6px}
+.texto-longo a{color:var(--azul-texto)}
+
+/* preço em destaque nos cartões da Assistência Técnica */
+.situacoes p strong{display:block;margin-bottom:4px;font-size:1.25rem;color:var(--escuro)}
+
+/* ---------- rótulo acima do título ---------- */
+.sobretitulo{margin-bottom:12px;font:700 .8125rem/1.3 var(--fonte);letter-spacing:.14em;text-transform:uppercase;color:var(--azul-texto)}
+
+/* ---------- pontos com rótulo azul (mesmo desenho dos pontos da identificação) ---------- */
+.pontos{display:grid;gap:0;margin-top:24px}
+.pontos > div{padding:14px 0;border-top:1px solid var(--fio)}
+.pontos dt{font:700 .8125rem/1.3 var(--fonte);letter-spacing:.12em;text-transform:uppercase;color:var(--azul-texto);margin-bottom:4px}
+.pontos dd{font-size:1rem;line-height:1.55;color:var(--texto)}
+
+/* ---------- o serviço fica registrado: texto e a folha do relatório ---------- */
+.registro{display:grid;gap:clamp(32px,5vw,72px);align-items:start}
+.registro-texto h2{margin-bottom:16px}
+.registro-texto > p:not(.sobretitulo){color:var(--texto);max-width:52ch}
+/* lado a lado, o texto começa na mesma linha do conteúdo da folha (pedido do Zamir em 11/11/2026) */
+@media (min-width:960px){.registro{grid-template-columns:minmax(0,5fr) minmax(0,6fr)}.registro-texto{padding-top:clamp(18px,3vw,30px)}}
+.folha{margin:0;padding:clamp(18px,3vw,30px);background:var(--papel);border:1px solid var(--fio);border-radius:10px;box-shadow:0 18px 44px rgba(14,34,53,.13);font-size:.875rem;line-height:1.45;color:var(--texto)}
+.folha-topo{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;padding-bottom:14px;border-bottom:2px solid var(--escuro)}
+.folha-marca{flex:none;display:inline-flex}
+.folha-marca img{width:auto;max-width:none;height:26px}   /* versão reduzida, 108 de largura */
+.folha-id{text-align:right;font-size:.75rem;color:var(--texto-suave)}
+.folha-id strong{display:block;font-size:1rem;letter-spacing:.02em;text-transform:uppercase;color:var(--escuro)}
+.folha-dados{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:14px}
+.folha-dados dt,.folha-rotulo{font:700 .6875rem/1.3 var(--fonte);letter-spacing:.1em;text-transform:uppercase;color:var(--texto-suave)}
+.folha-dados dd{font-weight:600;color:var(--escuro)}
+.folha-rotulo{margin-top:18px;color:var(--azul-texto)}
+.folha .relatorio{margin-top:6px;font-size:.8125rem}
+.folha .relatorio td{padding:8px 10px 8px 0}
+.folha .relatorio th{padding:6px 10px 6px 0}
+.folha-fotos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:8px;font-size:.75rem;color:var(--texto-suave)}
+.folha-fotos img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:5px;margin-bottom:5px;background:var(--nevoa)}
+.folha-linhas{margin-top:16px;border-top:1px solid var(--fio)}
+.folha-linhas p{display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;padding:9px 0;border-bottom:1px solid var(--fio)}
+.folha-linhas strong{flex:0 0 100%;font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--escuro)}
+.folha-escala{display:inline-flex;gap:5px}
+.folha-escala i{display:grid;place-items:center;width:24px;height:24px;border:1px solid var(--fio);border-radius:50%;font-style:normal;font-size:.75rem;color:var(--texto-suave)}
+.folha-botoes{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.folha-bt{padding:8px 14px;border:1px solid var(--azul-texto);border-radius:5px;font-weight:600;font-size:.8125rem;color:var(--azul-texto)}
+.folha-bt.cheio{background:var(--azul-texto);color:#fff}
+.folha figcaption{margin-top:14px;font-size:.75rem;font-style:italic;color:var(--texto-suave)}
+@media (min-width:640px){.folha-linhas strong{flex:0 0 13.5em}}
+
+/* ---------- condomínio: o desenho do acesso e a lista numerada ---------- */
+.mapa-desenho{display:block;width:100%;height:auto;border:1px solid var(--fio);border-radius:10px;background:var(--papel)}
+.mapa-lista{display:grid;gap:14px;margin-top:20px;counter-reset:mapa}
+.mapa-lista li{position:relative;padding:16px 18px 18px 62px;background:var(--papel);border:1px solid var(--fio);border-radius:6px;counter-increment:mapa}
+.mapa-lista li::before{content:counter(mapa);position:absolute;left:16px;top:16px;display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--azul);color:#fff;font-weight:700}
+.mapa-lista h3{margin-bottom:4px}
+.mapa-lista p{font-size:.9375rem;color:var(--texto-suave)}
+@media (min-width:640px){.mapa-lista{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:1000px){.mapa-lista{grid-template-columns:repeat(4,minmax(0,1fr))}}
+
+/* título comprido da capa: letra menor, para caber em poucas linhas */
+.abertura h1.titulo-longo{font-size:clamp(1.625rem,3.3vw,2.625rem);line-height:1.14}
+
+/* ============================================================
+   Proposta de design B (11/11/2026), em avaliação pelo Zamir.
+   Referência de forma: easy5.io. Mais branco, títulos ao centro com
+   rótulo colorido, diferenciais em ícones e serviços com a foto
+   inteira e o nome por cima. Só a página /proposta-de-design/ usa.
+   Aprovada, vira o padrão; reprovada, este arquivo e a página saem.
+   ============================================================ */
+.abre-centro{text-align:center;margin-inline:auto}
+.abre-centro h2{margin-inline:auto}
+
+/* diferenciais: ícone em linha, título e uma frase */
+.difs{display:grid;gap:36px 28px;margin-top:8px}
+.difs li{text-align:center}
+.ic-dif{width:52px;height:52px;margin:0 auto 14px;display:block;fill:none;stroke:var(--azul);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.difs h3{margin-bottom:6px;font-size:1.125rem}
+.difs p{max-width:30ch;margin-inline:auto;font-size:.9375rem;color:var(--texto-suave)}
+@media (min-width:560px){.difs{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:900px){.difs{grid-template-columns:repeat(3,minmax(0,1fr));gap:48px 40px}}
+
+/* serviços: a foto ocupa o cartão, o nome vai por cima */
+@media (min-width:640px){
+  .grade-b .servico{position:relative;display:block;border-radius:10px;overflow:hidden;min-height:260px;background:var(--escuro)}
+  .grade-b .servico img{position:absolute;inset:0;width:100%;height:100%;aspect-ratio:auto;object-fit:cover;transition:transform .35s ease}
+  .grade-b .servico::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,26,42,.05) 25%,rgba(10,26,42,.88) 100%)}
+  .grade-b .servico-texto{position:absolute;left:0;right:0;bottom:0;z-index:1;border-top:0;padding:20px 22px 22px}
+  .grade-b .servico h3{color:#fff;font-size:1.25rem}
+  .grade-b .servico p{color:#e3ebf3;font-size:.9375rem}
+  .grade-b .servico:hover img{transform:scale(1.04)}
+  .grade-b .servico:hover h3{color:#fff}
+  .grade-b li:nth-child(-n+3) .servico{min-height:320px}
+}
+.servico-mais{display:none}
+.grade-b .servico-mais{display:inline-block;margin-top:12px;padding:7px 14px;border-radius:5px;background:var(--azul);color:#fff;font:600 .8125rem/1 var(--fonte)}
+@media (max-width:639px){.grade-b .servico-mais{display:none}}
+@media (prefers-reduced-motion:reduce){.grade-b .servico img{transition:none}}
