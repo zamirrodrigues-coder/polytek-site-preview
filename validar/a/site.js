@@ -129,12 +129,12 @@
     });
   }
 
-  /* Origem do anúncio (utm e gclid), guardada só depois do aceite e só nesta aba.
-     Nada é enviado: fica pronta para a fase que liga o contato ao CRM. */
+  /* Origem do anúncio (utm, gclid, gbraid e wbraid), guardada só depois do aceite e só nesta aba.
+     Vai junto do envio do formulário ao CRM. A lista é a mesma que o envio lê (Fatia 31). */
   function guardarOrigem(){
     try {
       var p = new URLSearchParams(location.search), o = {}, tem = false;
-      ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','gclid'].forEach(function(k){
+      ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','gclid','gbraid','wbraid'].forEach(function(k){
         if (p.get(k)) { o[k] = p.get(k); tem = true; }
       });
       if (tem && !sessionStorage.getItem('polytek_origem')) sessionStorage.setItem('polytek_origem', JSON.stringify(o));
