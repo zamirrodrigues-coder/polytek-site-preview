@@ -78,9 +78,22 @@
   var gravar = function(v){ try { localStorage.setItem(CHAVE, v); } catch(e){} };
 
   function aplicar(v){
-    if (typeof gtag !== 'function') return;
     var ok = (v === 'aceito') ? 'granted' : 'denied';
-    gtag('consent', 'update', { ad_storage: ok, ad_user_data: ok, ad_personalization: ok, analytics_storage: ok });
+    if (typeof gtag === 'function') gtag('consent', 'update', { ad_storage: ok, ad_user_data: ok, ad_personalization: ok, analytics_storage: ok });
+    /* Microsoft Clarity (Fatia 32): o Tag Manager só o carrega com o aceite. Se ele já estiver
+       na página e a pessoa recusar pelo rodapé, apaga os cookies dele e para de gravar; se ela
+       aceitar de novo, volta a gravar. Sem o Clarity na página, não faz nada. */
+    if (typeof window.clarity === 'function') {
+      if (v === 'aceito') window.clarity('consentv2', { ad_Storage: 'granted', analytics_Storage: 'granted' });
+      else window.clarity('consent', false);
+    }
+  }
+
+  /* Avisa o Tag Manager do aceite, depois de o consentimento mudar, para as tags que pedem
+     consentimento (o Clarity) começarem já nesta página. Recusar não avisa. */
+  function avisarAceite(){
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event: 'consentimento_aceito' });
   }
 
   /* A página reserva a altura do aviso enquanto ele está aberto (--aviso-altura, usada
@@ -103,9 +116,9 @@
     el.setAttribute('aria-label', 'Aviso sobre Cookies');
     el.tabIndex = -1;
     el.innerHTML =
-      '<p><strong>Este site usa cookies.</strong> Usamos cookies do Google para medir as visitas ao site e quantas ' +
-      'pessoas chegam até nós pelos anúncios. Você pode recusar sem perder nenhuma função do site. ' +
-      '<a href="https://www.polytek.com.br/politica-de-privacidade/">Política de Privacidade</a></p>' +
+      '<p><strong>Este site usa cookies.</strong> Usamos cookies do Google e da Microsoft para medir as visitas ao site, ' +
+      'ver como as páginas são usadas e quantas pessoas chegam até nós pelos anúncios. Você pode recusar sem perder nenhuma função do site. ' +
+      '<a href="/polytek-site-preview/validar/politica-de-privacidade/">Política de Privacidade</a></p>' +
       '<div><button type="button" data-recusar>Recusar</button>' +
       '<button type="button" data-aceitar>Aceitar</button></div>';
     /* No começo da página: Recusar e Aceitar ficam entre as primeiras paradas do teclado.
@@ -121,7 +134,7 @@
       if (!b) return;
       var v = b.hasAttribute('data-aceitar') ? 'aceito' : 'recusado';
       gravar(v); aplicar(v);
-      if (v === 'aceito') guardarOrigem();
+      if (v === 'aceito') { guardarOrigem(); avisarAceite(); }
       if (olho) olho.disconnect(); else window.removeEventListener('resize', medir);
       el.parentNode.removeChild(el);
       reservar(null);
